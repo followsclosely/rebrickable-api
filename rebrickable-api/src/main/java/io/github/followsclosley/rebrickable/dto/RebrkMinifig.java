@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RebrkMinifig {
+    @JsonProperty("set_num")
     private String id;
     private String name;
     @JsonProperty("num_parts")
