@@ -1,17 +1,16 @@
 package io.github.followsclosley.rebrickable.spring;
 
 import io.github.followsclosley.rebrickable.RebrkMinifigClient;
-import io.github.followsclosley.rebrickable.RebrkSetClient;
 import io.github.followsclosley.rebrickable.dto.RebrkMinifig;
 import io.github.followsclosley.rebrickable.dto.RebrkResponse;
-import io.github.followsclosley.rebrickable.dto.RebrkSet;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.util.Collection;
 
 public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements RebrkMinifigClient {
 
-    private final static ParameterizedTypeReference<RebrkResponse<RebrkMinifig>> TYPE = new ParameterizedTypeReference<>() {};
+    private final static ParameterizedTypeReference<RebrkResponse<RebrkMinifig>> TYPE = new ParameterizedTypeReference<>() {
+    };
 
     public RebrkMinifigRestClient(String authorizationKey) {
         super(authorizationKey);

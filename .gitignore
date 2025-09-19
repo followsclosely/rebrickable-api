@@ -30,3 +30,4 @@ replay_pid*
 /rebrickable-spring-rest-client/build/
 /build/
 /gradlew*
+/rebrickable-spring-rest-client/src/test/resources/.application.properties

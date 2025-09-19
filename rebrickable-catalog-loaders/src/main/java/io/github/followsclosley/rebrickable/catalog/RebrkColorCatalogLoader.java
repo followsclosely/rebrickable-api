@@ -16,7 +16,7 @@ public class RebrkColorCatalogLoader extends AbstractCatalogLoader<RebrkColor> i
 
     /**
      * This method maps a CSVRecord to a RebrkColor object.
-     *
+     * <p>
      * The format of the csv file is as follows:
      * <pre>id,name,rgb,is_trans,num_parts,num_sets,y1,y2</pre>
      *

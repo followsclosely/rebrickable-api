@@ -1,12 +1,8 @@
 package io.github.followsclosley.rebrickable.spring;
 
 import io.github.followsclosley.rebrickable.AuthorizationKey;
-import io.github.followsclosley.rebrickable.RebrkMinifigClient;
 import io.github.followsclosley.rebrickable.dto.RebrkMinifig;
-import io.github.followsclosley.rebrickable.dto.RebrkSet;
 import org.junit.jupiter.api.Test;
-
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

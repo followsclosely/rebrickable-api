@@ -16,7 +16,7 @@ public class RebrkThemeCatalogLoader extends AbstractCatalogLoader<RebrkTheme> i
 
     /**
      * This method maps a CSVRecord to a RebrkTheme object.
-     *
+     * <p>
      * The format of the csv file is as follows:
      * <pre>id,name,parent_id</pre>
      *
