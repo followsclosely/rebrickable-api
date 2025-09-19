@@ -25,3 +25,8 @@ replay_pid*
 /.gradle/
 /.idea/
 /gradle/
+/rebrickable-api/build/
+/rebrickable-catalog-loaders/build/
+/rebrickable-spring-rest-client/build/
+/build/
+/gradlew*
