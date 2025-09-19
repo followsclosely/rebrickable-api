@@ -1,5 +1,6 @@
 package io.github.followsclosley.rebrickable.spring;
 
+import io.github.followsclosley.rebrickable.AuthorizationKey;
 import io.github.followsclosley.rebrickable.dto.RebrkSet;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkSetRestClientTest {
 
-    private static final String AUTHORIZATION_KEY = "683adc46fe0b60add9c6c5920ec4f0f0";
+    private final RebrkSetRestClient client = new RebrkSetRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getSet() {
-        RebrkSetRestClient client = new RebrkSetRestClient(AUTHORIZATION_KEY);
         RebrkSet result = client.getSet("10305-1");
 
         assertNotNull(result);
@@ -24,10 +24,8 @@ class RebrkSetRestClientTest {
 
     //@Test
     void getSets() {
-
-        RebrkSetRestClient client = new RebrkSetRestClient(AUTHORIZATION_KEY);
-
         Collection<RebrkSet> result = client.getSets();
+
         assertNotNull(result);
         assertEquals(273, result.size());
     }

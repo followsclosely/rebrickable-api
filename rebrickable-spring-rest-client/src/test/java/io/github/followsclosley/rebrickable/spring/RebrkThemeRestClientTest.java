@@ -1,5 +1,6 @@
 package io.github.followsclosley.rebrickable.spring;
 
+import io.github.followsclosley.rebrickable.AuthorizationKey;
 import io.github.followsclosley.rebrickable.dto.RebrkTheme;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkThemeRestClientTest {
 
-    private static final String AUTHORIZATION_KEY = "683adc46fe0b60add9c6c5920ec4f0f0";
-    private final RebrkThemeRestClient client = new RebrkThemeRestClient(AUTHORIZATION_KEY);
+    private final RebrkThemeRestClient client = new RebrkThemeRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getTheme() {
