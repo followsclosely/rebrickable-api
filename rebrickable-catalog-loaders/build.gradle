@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compileOnly('org.projectlombok:lombok:1.18.40')
+    annotationProcessor('org.projectlombok:lombok:1.18.40')
+
+    compileOnly('org.slf4j:slf4j-api:2.0.17')
+    compileOnly('ch.qos.logback:logback-classic:1.5.17')
+
+    implementation(project(':rebrickable-api'))
+    implementation('org.apache.commons:commons-csv:1.14.1')
+
+    // For testing
+    testImplementation(project(':rebrickable-api'))
+    testImplementation('ch.qos.logback:logback-classic:1.5.17')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
+}
+
+test {
+    useJUnitPlatform()
+}

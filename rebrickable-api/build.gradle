@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compileOnly('org.projectlombok:lombok:1.18.40')
+    annotationProcessor('org.projectlombok:lombok:1.18.40')
+
+    implementation('com.fasterxml.jackson.core:jackson-annotations:3.0-rc5')
+
+    // For testing
+    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.15.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
+
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
+}
+
+test {
+    useJUnitPlatform()
+}
