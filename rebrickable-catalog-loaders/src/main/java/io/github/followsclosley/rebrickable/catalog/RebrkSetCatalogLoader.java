@@ -18,11 +18,13 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
     }
 
     /**
+     * This method maps a CSVRecord to a RebrkSet object.
+     *
      * The format of the csv file is as follows:
      * <pre>set_num,name,year,theme_id,num_parts,img_url</pre>
      *
-     * @param record
-     * @return
+     * @param record The row of the .csv file as a CSVRecord
+     * @return A RebrkSet object populated with data from the CSVRecord
      */
     protected RebrkSet apply(CSVRecord record) {
         RebrkSet set = new RebrkSet();

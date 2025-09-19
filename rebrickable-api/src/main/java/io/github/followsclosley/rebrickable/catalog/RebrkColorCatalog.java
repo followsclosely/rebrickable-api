@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 public interface RebrkColorCatalog {
-    public Stream<RebrkColor> streamFromCatalog() throws IOException;
+    Stream<RebrkColor> streamFromCatalog() throws IOException;
 }

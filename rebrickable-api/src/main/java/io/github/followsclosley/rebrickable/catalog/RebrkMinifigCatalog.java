@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.util.stream.Stream;
 
 public interface RebrkMinifigCatalog {
-    public Stream<RebrkMinifig> streamFromCatalog() throws IOException;
+    Stream<RebrkMinifig> streamFromCatalog() throws IOException;
 }

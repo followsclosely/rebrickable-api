@@ -1,6 +1,5 @@
 package io.github.followsclosley.rebrickable.catalog;
 
-import io.github.followsclosley.rebrickable.dto.RebrkColor;
 import io.github.followsclosley.rebrickable.dto.RebrkMinifig;
 import org.junit.jupiter.api.Test;
 
