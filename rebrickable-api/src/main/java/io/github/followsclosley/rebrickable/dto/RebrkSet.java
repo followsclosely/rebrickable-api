@@ -1,11 +1,14 @@
 package io.github.followsclosley.rebrickable.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -20,7 +23,7 @@ public class RebrkSet {
     @JsonProperty("theme_id")
     private Long themeId;
     @JsonProperty("num_parts")
-    private int parts;
+    private int numberOfParts;
     @JsonProperty("set_img_url")
     private String imageUrl;
     @JsonProperty("set_url")
@@ -28,5 +31,11 @@ public class RebrkSet {
     @JsonProperty("last_modified_dt")
     private String lastModified;
 
+
+    @JsonIgnore
     private RebrkTheme theme;
+    @JsonIgnore
+    private List<RebrkInventoryPart> parts;
+    @JsonIgnore
+    private List<RebrkInventoryMinifig> minifigs;
 }

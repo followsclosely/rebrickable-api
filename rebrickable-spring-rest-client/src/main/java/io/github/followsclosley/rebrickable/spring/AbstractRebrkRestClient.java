@@ -3,6 +3,7 @@ package io.github.followsclosley.rebrickable.spring;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.util.UriBuilder;
 
 @RequiredArgsConstructor
 public class AbstractRebrkRestClient {
@@ -16,5 +17,11 @@ public class AbstractRebrkRestClient {
                     headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
                     headers.add("Authorization", "key " + authorizationKey);
                 }).build());
+    }
+
+    public void queryParam(UriBuilder builder, String name, Object value) {
+        if (value != null) {
+            builder.queryParam(name, value);
+        }
     }
 }

@@ -19,16 +19,19 @@ class RebrkSetCatalogLoaderTest {
     @BeforeAll
     public static void setup() throws IOException {
         RebrkSetCatalogLoaderTest.context = CatalogContext.builder()
-                .colors(new RebrkColorCatalogLoader().streamFromCatalog().toList())
-                .themes(new RebrkThemeCatalogLoader().streamFromCatalog().toList())
+                .colors(new RebrkColorCatalogLoader().stream().toList())
+                .themes(new RebrkThemeCatalogLoader().stream().toList())
+                .categories(new RebrkCategoryCatalogLoader().stream().toList())
                 .build();
     }
 
     @Test
     void loadFromCatalog() throws IOException {
         RebrkSetCatalogLoader loader = new RebrkSetCatalogLoader(context);
-        try (Stream<RebrkSet> stream = loader.streamFromCatalog()) {
+        try (Stream<RebrkSet> stream = loader.stream()) {
             Optional<RebrkSet> first = stream.findFirst();
+
+            first.ifPresent(System.out::println);
 
             assertTrue(first.isPresent());
             assertEquals("0003977811-1", first.get().getNumber());
@@ -39,7 +42,7 @@ class RebrkSetCatalogLoaderTest {
     //@Test
     void loadAllFromCatalog() throws IOException {
         RebrkSetCatalogLoader loader = new RebrkSetCatalogLoader(context);
-        for (Iterator<RebrkSet> it = loader.streamFromCatalog().iterator(); it.hasNext(); ) {
+        for (Iterator<RebrkSet> it = loader.stream().iterator(); it.hasNext(); ) {
             RebrkSet set = it.next();
             System.out.println(set);
         }

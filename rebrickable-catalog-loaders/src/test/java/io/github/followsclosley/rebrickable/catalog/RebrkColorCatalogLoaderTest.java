@@ -15,8 +15,10 @@ class RebrkColorCatalogLoaderTest {
     @Test
     void loadFromCatalog() throws IOException {
         RebrkColorCatalogLoader loader = new RebrkColorCatalogLoader();
-        try (Stream<RebrkColor> stream = loader.streamFromCatalog()) {
+        try (Stream<RebrkColor> stream = loader.stream()) {
             Optional<RebrkColor> first = stream.findFirst();
+
+            first.ifPresent(System.out::println);
 
             assertTrue(first.isPresent());
             assertEquals(-1L, first.get().getId());

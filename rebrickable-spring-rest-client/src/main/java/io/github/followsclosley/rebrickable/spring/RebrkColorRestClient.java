@@ -3,17 +3,15 @@ package io.github.followsclosley.rebrickable.spring;
 import io.github.followsclosley.rebrickable.RebrkColorClient;
 import io.github.followsclosley.rebrickable.dto.RebrkColor;
 import io.github.followsclosley.rebrickable.dto.RebrkResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
 public class RebrkColorRestClient extends AbstractRebrkRestClient implements RebrkColorClient {
 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkColor>> COLOR_TYPE_REF
-            = new ParameterizedTypeReference<>() {};
+            = new ParameterizedTypeReference<>() {
+    };
 
     public RebrkColorRestClient(String authorizationKey) {
         super(authorizationKey);

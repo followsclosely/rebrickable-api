@@ -1,7 +1,6 @@
 package io.github.followsclosley.rebrickable.catalog;
 
 import io.github.followsclosley.rebrickable.dto.RebrkMinifig;
-import io.github.followsclosley.rebrickable.dto.RebrkSet;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVRecord;
 
@@ -16,7 +15,7 @@ public class RebrkMinifigCatalogLoader extends AbstractCatalogLoader<RebrkMinifi
 
     /**
      * This method maps a CSVRecord to a RebrkMinifig object.
-     *
+     * <p>
      * The format of the csv file is as follows:
      * <pre>fig_num,name,num_parts,img_url</pre>
      *

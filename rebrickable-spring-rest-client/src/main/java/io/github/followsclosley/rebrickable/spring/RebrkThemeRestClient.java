@@ -3,17 +3,15 @@ package io.github.followsclosley.rebrickable.spring;
 import io.github.followsclosley.rebrickable.RebrkThemeClient;
 import io.github.followsclosley.rebrickable.dto.RebrkResponse;
 import io.github.followsclosley.rebrickable.dto.RebrkTheme;
-import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
 public class RebrkThemeRestClient extends AbstractRebrkRestClient implements RebrkThemeClient {
 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkTheme>> Theme_TYPE_REF
-            = new ParameterizedTypeReference<>() {};
+            = new ParameterizedTypeReference<>() {
+    };
 
     public RebrkThemeRestClient(String authorizationKey) {
         super(authorizationKey);

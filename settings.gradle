@@ -1,5 +1,5 @@
 rootProject.name = 'rebrickable-api'
 
 include 'rebrickable-api'
-include 'rebrickable-spring-rest-client'
 include 'rebrickable-catalog-loaders'
+include 'rebrickable-spring-rest-client'

@@ -18,11 +18,13 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
     }
 
     /**
+     * This method maps a CSVRecord to a RebrkSet object.
+     * <p>
      * The format of the csv file is as follows:
      * <pre>set_num,name,year,theme_id,num_parts,img_url</pre>
      *
-     * @param record
-     * @return
+     * @param record The row of the .csv file as a CSVRecord
+     * @return A RebrkSet object populated with data from the CSVRecord
      */
     protected RebrkSet apply(CSVRecord record) {
         RebrkSet set = new RebrkSet();
@@ -34,7 +36,7 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
             if (context != null && set.getThemeId() != null) {
                 set.setTheme(context.getTheme(set.getThemeId()));
             }
-            set.setParts(Integer.parseInt(record.get(4)));
+            set.setNumberOfParts(Integer.parseInt(record.get(4)));
             set.setImageUrl(record.get(5));
         } catch (Exception e) {
             log.error("Error processing record {}: {}", record.getRecordNumber(), e.getMessage(), e);

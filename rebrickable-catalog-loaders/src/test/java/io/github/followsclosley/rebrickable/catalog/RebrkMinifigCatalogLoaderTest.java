@@ -1,6 +1,5 @@
 package io.github.followsclosley.rebrickable.catalog;
 
-import io.github.followsclosley.rebrickable.dto.RebrkColor;
 import io.github.followsclosley.rebrickable.dto.RebrkMinifig;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +15,13 @@ class RebrkMinifigCatalogLoaderTest {
     @Test
     void loadFromCatalog() throws IOException {
         RebrkMinifigCatalog loader = new RebrkMinifigCatalogLoader();
-        try (Stream<RebrkMinifig> stream = loader.streamFromCatalog()) {
+        try (Stream<RebrkMinifig> stream = loader.stream()) {
             Optional<RebrkMinifig> first = stream.findFirst();
+
+            first.ifPresent(System.out::println);
 
             assertTrue(first.isPresent());
             assertEquals("fig-000001", first.get().getId());
-            System.out.println(first.get());
         }
         //Stop after reading just the first entry from the stream.
     }

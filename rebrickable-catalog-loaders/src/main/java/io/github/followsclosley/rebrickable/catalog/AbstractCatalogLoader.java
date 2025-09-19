@@ -33,7 +33,7 @@ public abstract class AbstractCatalogLoader<R> {
      * @return A Stream of RebrkColor objects.
      * @throws IOException if an I/O error occurs during stream creation.
      */
-    public Stream<R> streamFromCatalog() throws IOException {
+    public Stream<R> stream() throws IOException {
         try {
             String uri = this.uri;
             if (!uri.contains("?")) {
