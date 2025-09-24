@@ -5,8 +5,6 @@ import io.github.followsclosely.rebrickable.dto.RebrkColor;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
 
-import java.util.Collection;
-
 public class RebrkColorRestClient extends AbstractRebrkRestClient implements RebrkColorClient {
 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkColor>> COLOR_TYPE_REF
@@ -25,14 +23,23 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
     }
 
     @Override
-    public Collection<RebrkColor> getColors() {
+    public RebrkResponse<RebrkColor> getColors() {
+        return getColors(null);
+    }
 
-        RebrkResponse<RebrkColor> result = restClient.get()
-                .uri(builder -> builder.path("colors/").queryParam("page_size", "1000").build())
+    @Override
+    public RebrkResponse<RebrkColor> getColors(Query query) {
+       return restClient.get()
+                .uri(builder -> {
+                    builder.path("colors/");
+                    if (query != null) {
+                        queryParam(builder, "page", query.getPage());
+                        queryParam(builder, "page_size", query.getPageSize());
+                        queryParam(builder, "ordering", query.getOrdering());
+                    }
+                    return builder.build();
+                })
                 .retrieve()
                 .body(COLOR_TYPE_REF);
-
-        assert result != null;
-        return result.getResults();
     }
 }

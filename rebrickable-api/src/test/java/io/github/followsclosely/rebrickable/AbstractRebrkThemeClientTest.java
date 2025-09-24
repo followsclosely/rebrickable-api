@@ -26,7 +26,7 @@ class AbstractRebrkThemeClientTest {
             return immutableMap.get(id);
         }
 
-        public Collection<RebrkTheme> getThemes() {
+        public Collection<RebrkTheme> getThemes(Query query) {
             return immutableMap.values();
         }
     };

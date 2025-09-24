@@ -21,6 +21,11 @@ public abstract class AbstractCatalogLoader<R> {
     private final String uri;
     private final CSVFormat csvFormat;
 
+    /**
+     * Constructs an AbstractCatalogLoader with the specified URI and CSV format.
+     *
+     * @param uri       The URI of the GZIP-compressed CSV file.
+     */
     protected AbstractCatalogLoader(String uri) {
         this(uri, CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).setDelimiter(',').setIgnoreEmptyLines(true).get());
     }

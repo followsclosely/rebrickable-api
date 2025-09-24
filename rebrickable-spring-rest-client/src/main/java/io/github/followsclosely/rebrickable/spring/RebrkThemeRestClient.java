@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkCategoryClient;
 import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkTheme;
@@ -26,10 +27,18 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
     }
 
     @Override
-    public Collection<RebrkTheme> getThemes() {
+    public Collection<RebrkTheme> getThemes(Query query) {
 
         RebrkResponse<RebrkTheme> result = restClient.get()
-                .uri(builder -> builder.path("themes/").queryParam("page_size", "1000").build())
+                .uri(builder -> {
+                    builder.path("themes/");
+                    if (query != null) {
+                        queryParam(builder, "page", query.getPage());
+                        queryParam(builder, "page_size", query.getPageSize());
+                        queryParam(builder, "ordering", query.getOrdering());
+                    }
+                    return builder.build();
+                })
                 .retrieve()
                 .body(Theme_TYPE_REF);
 

@@ -24,7 +24,7 @@ class RebrkColorRestClientTest {
 
     @Test
     void getColors() {
-        Collection<RebrkColor> result = rebrkColorClient.getColors();
+        Collection<RebrkColor> result = rebrkColorClient.getColors(RebrkColorClient.Query.builder().pageSize(300).build()).getResults();
 
         assertNotNull(result);
         assertEquals(273, result.size());

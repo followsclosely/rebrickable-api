@@ -5,10 +5,25 @@ import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * Client interface for interacting with the Rebrickable Minifig API.
+ */
 public interface RebrkMinifigClient {
 
+    /**
+     * Retrieves a minifig by its unique identifier.
+     *
+     * @param id The unique identifier of the minifig.
+     * @return The minifig corresponding to the provided ID.
+     */
     RebrkMinifig getMinifig(String id);
 
+    /**
+     * Retrieves a list of minifigs based on the provided query parameters.
+     *
+     * @param query The query parameters for filtering and pagination.
+     * @return A response containing a list of minifigs matching the query.
+     */
     RebrkResponse<RebrkMinifig> getMinifigs(Query query);
 
     @Data

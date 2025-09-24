@@ -4,7 +4,6 @@ import io.github.followsclosely.rebrickable.dto.RebrkTheme;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVRecord;
 
-
 @Slf4j
 public class RebrkThemeCatalogLoader extends AbstractCatalogLoader<RebrkTheme> implements RebrkThemeCatalog {
 

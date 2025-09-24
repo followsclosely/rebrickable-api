@@ -25,10 +25,18 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
     }
 
     @Override
-    public Collection<RebrkCategory> getCategories() {
+    public Collection<RebrkCategory> getCategories(Query query) {
 
         RebrkResponse<RebrkCategory> result = restClient.get()
-                .uri(builder -> builder.path("part_categories/").queryParam("page_size", "1000").build())
+                .uri(builder -> {
+                    builder.path("part_categories/");
+                    if (query != null) {
+                        queryParam(builder, "page", query.getPage());
+                        queryParam(builder, "page_size", query.getPageSize());
+                        queryParam(builder, "ordering", query.getOrdering());
+                    }
+                    return builder.build();
+                })
                 .retrieve()
                 .body(TYPE_REF);
 
