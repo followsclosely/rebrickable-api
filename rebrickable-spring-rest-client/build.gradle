@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group 'com.example'
-version = '3.0.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
@@ -16,7 +13,7 @@ dependencies {
 
     compileOnly('org.springframework:spring-web:6.2.11')
     implementation(project(':rebrickable-api'))
-    implementation('com.fasterxml.jackson.core:jackson-annotations:3.0-rc5')
+    implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
 
     // For testing
     testImplementation(project(':rebrickable-api'))

@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group 'com.example'
-version = '3.0.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
 }
