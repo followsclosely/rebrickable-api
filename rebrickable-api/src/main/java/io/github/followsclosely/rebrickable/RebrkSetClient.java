@@ -23,8 +23,8 @@ public interface RebrkSetClient {
     /**
      * Retrieves a set by its number, with options to load parts and minifigs.
      *
-     * @param number      the set number
-     * @param loadParts   whether to load parts
+     * @param number       the set number
+     * @param loadParts    whether to load parts
      * @param loadMinifigs whether to load minifigs
      * @return the corresponding {@link RebrkSet}
      */

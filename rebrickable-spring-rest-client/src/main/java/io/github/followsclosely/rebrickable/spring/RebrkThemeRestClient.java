@@ -1,6 +1,5 @@
 package io.github.followsclosely.rebrickable.spring;
 
-import io.github.followsclosely.rebrickable.RebrkCategoryClient;
 import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkTheme;

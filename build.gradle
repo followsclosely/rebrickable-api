@@ -1,5 +1,9 @@
-
 subprojects {
     group = 'io.github.followsclosely'
     version = '3.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
 }

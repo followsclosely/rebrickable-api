@@ -23,6 +23,7 @@ public interface RebrkColorClient {
      * @return A RebrkResponse containing a list of RebrkColor objects.
      */
     RebrkResponse<RebrkColor> getColors();
+
     /**
      * Retrieves a paginated list of colors based on the provided query parameters.
      *

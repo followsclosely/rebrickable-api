@@ -4,6 +4,7 @@ import io.github.followsclosely.rebrickable.RebrkCategoryClient;
 import io.github.followsclosely.rebrickable.dto.RebrkCategory;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
@@ -11,6 +12,10 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkCategory>> TYPE_REF = new ParameterizedTypeReference<>() {
     };
+
+    public RebrkCategoryRestClient(RestClient restClient) {
+        super(restClient);
+    }
 
     public RebrkCategoryRestClient(String authorizationKey) {
         super(authorizationKey);

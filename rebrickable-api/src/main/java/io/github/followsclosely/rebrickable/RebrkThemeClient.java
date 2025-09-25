@@ -31,9 +31,10 @@ public interface RebrkThemeClient {
      *
      * @return a {@code Collection} of all {@code RebrkTheme} objects
      */
-    default Collection<RebrkTheme> getThemes(){
+    default Collection<RebrkTheme> getThemes() {
         return getThemes(null);
     }
+
     /**
      * Retrieves a collection of {@link RebrkTheme} objects based on the provided query parameters.
      *
@@ -45,6 +46,7 @@ public interface RebrkThemeClient {
     /**
      * Retrieves a hierarchical collection of {@link RebrkTheme} objects, organizing them into parent-child
      * relationships based on their parent IDs.
+     *
      * @return a {@code Collection} of top-level {@code RebrkTheme} objects, each containing their respective child themes
      */
     default Collection<RebrkTheme> getThemesHierarchical() {

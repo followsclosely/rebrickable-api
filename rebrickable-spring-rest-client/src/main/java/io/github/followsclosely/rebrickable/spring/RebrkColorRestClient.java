@@ -29,7 +29,7 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
 
     @Override
     public RebrkResponse<RebrkColor> getColors(Query query) {
-       return restClient.get()
+        return restClient.get()
                 .uri(builder -> {
                     builder.path("colors/");
                     if (query != null) {

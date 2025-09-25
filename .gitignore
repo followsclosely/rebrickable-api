@@ -31,3 +31,4 @@ replay_pid*
 /build/
 /gradlew*
 /rebrickable-spring-rest-client/src/test/resources/.application.properties
+/rebrickable-hello-world/src/main/resources/application.properties

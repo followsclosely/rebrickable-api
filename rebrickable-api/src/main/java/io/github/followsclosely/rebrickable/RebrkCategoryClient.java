@@ -24,7 +24,7 @@ public interface RebrkCategoryClient {
      *
      * @return a collection of all categories
      */
-    default Collection<RebrkCategory> getCategories(){
+    default Collection<RebrkCategory> getCategories() {
         return getCategories(null);
     }
 
