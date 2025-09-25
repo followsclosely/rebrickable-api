@@ -17,6 +17,10 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey);
     }
 
+    public RebrkElementRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     @Override
     public RebrkElement getElement(String id) {
         return restClient.get()

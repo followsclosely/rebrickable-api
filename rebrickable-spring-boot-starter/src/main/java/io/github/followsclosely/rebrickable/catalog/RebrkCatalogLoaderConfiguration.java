@@ -14,6 +14,7 @@ public class RebrkCatalogLoaderConfiguration {
     @Bean
     @ConditionalOnMissingBean(RebrkColorCatalogLoader.class)
     public RebrkColorCatalogLoader rebrkColorCatalogLoader() {
-        return new RebrkColorCatalogLoader();
+        RebrkColorCatalogLoader loader = new RebrkColorCatalogLoader();
+        return loader;
     }
 }

@@ -14,6 +14,10 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey);
     }
 
+    public RebrkMinifigRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     @Override
     public RebrkMinifig getMinifig(String id) {
         return restClient.get()

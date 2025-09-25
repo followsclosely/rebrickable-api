@@ -1,6 +1,7 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriBuilder;

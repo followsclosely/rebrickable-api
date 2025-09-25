@@ -17,6 +17,10 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
         super(authorizationKey);
     }
 
+    public RebrkThemeRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     @Override
     public RebrkTheme getTheme(Long id) {
         return restClient.get()

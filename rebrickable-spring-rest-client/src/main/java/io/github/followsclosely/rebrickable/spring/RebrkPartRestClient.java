@@ -22,6 +22,10 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
         super(authorizationKey);
     }
 
+    public RebrkPartRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     public RebrkPart getPart(String id) {
         return restClient.get()
                 .uri(builder -> builder

@@ -15,6 +15,10 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
         super(authorizationKey);
     }
 
+    public RebrkColorRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     public RebrkColor getColor(Long id) {
         return restClient.get()
                 .uri(builder -> builder.path("colors/" + id + "/").build())

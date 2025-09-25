@@ -2,6 +2,12 @@ package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.RebrkCategoryClient;
 import io.github.followsclosely.rebrickable.RebrkConfiguration;
+import io.github.followsclosely.rebrickable.RebrkColorClient;
+import io.github.followsclosely.rebrickable.RebrkElementClient;
+import io.github.followsclosely.rebrickable.RebrkMinifigClient;
+import io.github.followsclosely.rebrickable.RebrkPartClient;
+import io.github.followsclosely.rebrickable.RebrkSetClient;
+import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -35,8 +41,55 @@ public class RebrkRestClientConfiguration {
     @ConditionalOnClass(RebrkCategoryRestClient.class)
     @ConditionalOnMissingBean(RebrkCategoryClient.class)
     RebrkCategoryClient rebrkCategoryClient(RestClient restClient) {
-        RebrkCategoryRestClient client = new RebrkCategoryRestClient(restClient);
-        log.info("Created Bean: {}", client);
-        return client;
+        log.info("Creating rebrkCategoryClient bean using RebrkCategoryRestClient");
+        return new RebrkCategoryRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkColorRestClient.class)
+    @ConditionalOnMissingBean(RebrkColorClient.class)
+    RebrkColorClient rebrkColorClient(RestClient restClient) {
+        log.info("Creating rebrkColorClient bean using RebrkColorRestClient");
+        return new RebrkColorRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkElementRestClient.class)
+    @ConditionalOnMissingBean(RebrkElementClient.class)
+    RebrkElementClient rebrkElementClient(RestClient restClient) {
+        log.info("Creating rebrkElementClient bean using RebrkElementRestClient");
+        return new RebrkElementRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkMinifigRestClient.class)
+    @ConditionalOnMissingBean(RebrkMinifigClient.class)
+    RebrkMinifigClient rebrkMinifigClient(RestClient restClient) {
+        log.info("Creating rebrkMinifigClient bean using RebrkMinifigRestClient");
+        return new RebrkMinifigRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkPartRestClient.class)
+    @ConditionalOnMissingBean(RebrkPartClient.class)
+    RebrkPartClient rebrkPartClient(RestClient restClient) {
+        log.info("Creating rebrkPartClient bean using RebrkPartRestClient");
+        return new RebrkPartRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkSetRestClient.class)
+    @ConditionalOnMissingBean(RebrkSetClient.class)
+    RebrkSetClient rebrkSetClient(RestClient restClient) {
+        log.info("Creating rebrkSetClient bean using RebrkSetRestClient");
+        return new RebrkSetRestClient(restClient);
+    }
+
+    @Bean
+    @ConditionalOnClass(RebrkThemeRestClient.class)
+    @ConditionalOnMissingBean(RebrkThemeClient.class)
+    RebrkThemeClient rebrkThemeClient(RestClient restClient) {
+        log.info("Creating rebrkThemeClient bean using RebrkThemeRestClient");
+        return new RebrkThemeRestClient(restClient);
     }
 }

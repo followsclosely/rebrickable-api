@@ -27,6 +27,10 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         super(authorizationKey);
     }
 
+    public RebrkSetRestClient(org.springframework.web.client.RestClient restClient) {
+        super(restClient);
+    }
+
     public RebrkSet getSet(String number) {
         return this.getSet(number, false, false);
     }
