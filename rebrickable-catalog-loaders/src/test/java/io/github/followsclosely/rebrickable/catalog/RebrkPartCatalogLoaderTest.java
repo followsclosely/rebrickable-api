@@ -13,20 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RebrkPartCatalogLoaderTest {
 
-    private static CatalogContext context;
-
-    @BeforeAll
-    public static void setup() throws IOException {
-        RebrkPartCatalogLoaderTest.context = CatalogContext.builder()
-                .colors(new RebrkColorCatalogLoader().stream().toList())
-                .themes(new RebrkThemeCatalogLoader().stream().toList())
-                .categories(new RebrkCategoryCatalogLoader().stream().toList())
-                .build();
-    }
-
     @Test
     void loadFromCatalog() throws IOException {
-        RebrkPartCatalogLoader loader = new RebrkPartCatalogLoader(context);
+        RebrkPartCatalogLoader loader = new RebrkPartCatalogLoader();
         try (Stream<RebrkPart> stream = loader.stream()) {
             Optional<RebrkPart> first = stream.findFirst();
 

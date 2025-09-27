@@ -9,8 +9,12 @@ public class RebrkCategoryCatalogLoader extends AbstractCatalogLoader<RebrkCateg
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/part_categories.csv.gz";
 
-    RebrkCategoryCatalogLoader() {
+    public RebrkCategoryCatalogLoader() {
         super(DEFAULT_URI);
+    }
+
+    public RebrkCategoryCatalogLoader(String uri) {
+        super(uri == null ? DEFAULT_URI : uri);
     }
 
     /**

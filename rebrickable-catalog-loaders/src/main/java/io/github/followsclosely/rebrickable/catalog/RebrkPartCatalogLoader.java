@@ -10,11 +10,11 @@ public class RebrkPartCatalogLoader extends AbstractCatalogLoader<RebrkPart> imp
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/parts.csv.gz";
 
-    private final CatalogContext context;
-
-    public RebrkPartCatalogLoader(CatalogContext context) {
+    public RebrkPartCatalogLoader() {
         super(DEFAULT_URI);
-        this.context = context;
+    }
+    public RebrkPartCatalogLoader(String uri) {
+        super((uri==null) ? DEFAULT_URI : uri);
     }
 
     /**
@@ -32,9 +32,6 @@ public class RebrkPartCatalogLoader extends AbstractCatalogLoader<RebrkPart> imp
             part.setId(record.get(0));
             part.setName(record.get(1));
             part.setCategoryId(Long.parseLong(record.get(2)));
-            if (context != null && part.getCategoryId() != null) {
-                part.setCategory(context.getCategory(part.getCategoryId()));
-            }
             part.setMaterial(record.get(3));
         } catch (Exception e) {
             log.error("Error processing record {}: {}", record.getRecordNumber(), e.getMessage(), e);

@@ -10,11 +10,12 @@ public class RebrkElementCatalogLoader extends AbstractCatalogLoader<RebrkElemen
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/elements.csv.gz";
 
-    private final CatalogContext context;
-
-    public RebrkElementCatalogLoader(CatalogContext context) {
+    public RebrkElementCatalogLoader() {
         super(DEFAULT_URI);
-        this.context = context;
+    }
+
+    public RebrkElementCatalogLoader(String uri) {
+        super((uri==null) ? DEFAULT_URI : uri);
     }
 
     /**
@@ -33,9 +34,7 @@ public class RebrkElementCatalogLoader extends AbstractCatalogLoader<RebrkElemen
             element.setPartId(record.get(1));
             //todo: Should I try and load a part here?
             element.setColorId(Long.parseLong(record.get(2)));
-            if (context != null && element.getColorId() != null) {
-                element.setColor(context.getColor(element.getColorId()));
-            }
+
             if (record.isSet(3)) {
                 element.setDesignId(record.get(3));
             }

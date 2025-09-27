@@ -9,11 +9,11 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/sets.csv.gz";
 
-    private final CatalogContext context;
-
-    public RebrkSetCatalogLoader(CatalogContext context) {
+    public RebrkSetCatalogLoader() {
         super(DEFAULT_URI);
-        this.context = context;
+    }
+    public RebrkSetCatalogLoader(String uri, CatalogContext context) {
+        super((uri==null) ? DEFAULT_URI : uri);
     }
 
     /**
@@ -32,9 +32,6 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
             set.setName(record.get(1));
             set.setYear(Integer.parseInt(record.get(2)));
             set.setThemeId(Long.parseLong(record.get(3)));
-            if (context != null && set.getThemeId() != null) {
-                set.setTheme(context.getTheme(set.getThemeId()));
-            }
             set.setNumberOfParts(Integer.parseInt(record.get(4)));
             set.setImageUrl(record.get(5));
         } catch (Exception e) {

@@ -9,8 +9,11 @@ public class RebrkThemeCatalogLoader extends AbstractCatalogLoader<RebrkTheme> i
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/themes.csv.gz";
 
-    RebrkThemeCatalogLoader() {
+    public RebrkThemeCatalogLoader() {
         super(DEFAULT_URI);
+    }
+    public RebrkThemeCatalogLoader(String uri) {
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**

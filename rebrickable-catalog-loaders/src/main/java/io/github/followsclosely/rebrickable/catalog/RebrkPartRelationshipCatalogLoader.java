@@ -14,6 +14,9 @@ public class RebrkPartRelationshipCatalogLoader extends AbstractCatalogLoader<Re
     public RebrkPartRelationshipCatalogLoader() {
         super(DEFAULT_URI);
     }
+    public RebrkPartRelationshipCatalogLoader(String uri) {
+        super((uri == null) ? DEFAULT_URI : uri);
+    }
 
     /**
      * This method maps a CSVRecord to a RebrkPartRelationship object.

@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RebrkPartRelationshipCatalogLoaderTest {
 
-
     @Test
     void loadFromCatalog() throws IOException {
         RebrkPartRelationshipCatalogLoader loader = new RebrkPartRelationshipCatalogLoader();

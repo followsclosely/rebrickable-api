@@ -9,8 +9,12 @@ public class RebrkColorCatalogLoader extends AbstractCatalogLoader<RebrkColor> i
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/colors.csv.gz";
 
-    RebrkColorCatalogLoader() {
+    public RebrkColorCatalogLoader() {
         super(DEFAULT_URI);
+    }
+
+    public RebrkColorCatalogLoader(String uri) {
+        super((uri==null) ? DEFAULT_URI : uri);
     }
 
     /**

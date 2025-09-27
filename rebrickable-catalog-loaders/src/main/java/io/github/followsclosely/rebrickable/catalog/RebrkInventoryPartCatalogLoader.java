@@ -10,11 +10,12 @@ public class RebrkInventoryPartCatalogLoader extends AbstractCatalogLoader<Rebrk
 
     private final static String DEFAULT_URI = "https://cdn.rebrickable.com/media/downloads/inventory_parts.csv.gz";
 
-    private final CatalogContext context;
 
-    public RebrkInventoryPartCatalogLoader(CatalogContext context) {
+    public RebrkInventoryPartCatalogLoader() {
         super(DEFAULT_URI);
-        this.context = context;
+    }
+    public RebrkInventoryPartCatalogLoader(String uri) {
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**

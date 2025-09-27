@@ -13,6 +13,9 @@ public class RebrkInventoryMinifigCatalogLoader extends AbstractCatalogLoader<Re
     public RebrkInventoryMinifigCatalogLoader() {
         super(DEFAULT_URI);
     }
+    public RebrkInventoryMinifigCatalogLoader(String uri) {
+        super((uri == null) ? DEFAULT_URI : uri);
+    }
 
     /**
      * This method maps a CSVRecord to a RebrkInventoryMinifig object.
