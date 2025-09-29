@@ -1,12 +1,10 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'io.freefair.lombok' version '9.0.0'
 }
 
-
 dependencies {
-
-    compileOnly('org.projectlombok:lombok:1.18.40')
-    annotationProcessor('org.projectlombok:lombok:1.18.40')
 
     implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
 
@@ -15,6 +13,14 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
 
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
 
 test {

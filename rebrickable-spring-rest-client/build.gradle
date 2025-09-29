@@ -1,11 +1,10 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'io.freefair.lombok' version '9.0.0'
 }
 
 dependencies {
-
-    compileOnly('org.projectlombok:lombok:1.18.40')
-    annotationProcessor('org.projectlombok:lombok:1.18.40')
 
     compileOnly('org.springframework:spring-web:6.2.11')
     implementation(project(':rebrickable-api'))
@@ -20,6 +19,15 @@ dependencies {
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
 }
+
