@@ -19,7 +19,8 @@ dependencies {
     implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
 
     // For testing
-    testImplementation(project(':rebrickable-api'))
+    implementation('io.github.followsclosely:rebrickable-api:3.0.0-SNAPSHOT')
+
     testImplementation(project(':rebrickable-catalog-loaders'))
     testImplementation(project(':rebrickable-spring-rest-client'))
     testImplementation('com.fasterxml.jackson.core:jackson-databind:2.15.2')
