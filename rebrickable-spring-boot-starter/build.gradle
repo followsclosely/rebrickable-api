@@ -33,10 +33,16 @@ dependencies {
 
 }
 
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifact tasks.sourcesJar
         }
     }
 }

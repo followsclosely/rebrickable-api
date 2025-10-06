@@ -32,7 +32,7 @@ public class RebrkInventoryCatalogLoader extends AbstractCatalogLoader<RebrkInve
         try {
             inventory.setId(Long.valueOf(record.get(0)));
             inventory.setVersion(Integer.valueOf(record.get(1)));
-            inventory.setSetId(record.get(0));
+            inventory.setSetId(record.get(2));
         } catch (Exception e) {
             log.error("Error processing record {}: {}", record.getRecordNumber(), e.getMessage(), e);
         }
