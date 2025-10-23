@@ -21,9 +21,12 @@ public class RebrkElement {
     private String partId;
     @JsonIgnore
     private Long colorId;
+
     @JsonProperty("design_id")
     private String designId;
-
+    public String getDesign() {
+        return ("".equals(designId)) ? null : designId;
+    }
 
     private RebrkPart part;
     private RebrkColor color;

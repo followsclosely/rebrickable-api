@@ -1,7 +1,6 @@
 package io.github.followsclosely.rebrickable.catalog;
 
 import io.github.followsclosely.rebrickable.dto.RebrkSet;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

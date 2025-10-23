@@ -16,10 +16,10 @@ import java.util.Map;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RebrkPart {
-    @JsonProperty("external_ids")
-    Map<String, String[]> externalIds;
     @JsonProperty("part_num")
     private String id;
+    @JsonProperty("external_ids")
+    Map<String, String[]> externalIds;
     private String name;
     @JsonProperty("part_cat_id")
     private Long categoryId;

@@ -14,7 +14,7 @@ public class RebrkColorCatalogLoader extends AbstractCatalogLoader<RebrkColor> i
     }
 
     public RebrkColorCatalogLoader(String uri) {
-        super((uri==null) ? DEFAULT_URI : uri);
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**

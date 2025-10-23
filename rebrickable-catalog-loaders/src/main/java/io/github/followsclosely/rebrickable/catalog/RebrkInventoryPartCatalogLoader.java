@@ -14,6 +14,7 @@ public class RebrkInventoryPartCatalogLoader extends AbstractCatalogLoader<Rebrk
     public RebrkInventoryPartCatalogLoader() {
         super(DEFAULT_URI);
     }
+
     public RebrkInventoryPartCatalogLoader(String uri) {
         super((uri == null) ? DEFAULT_URI : uri);
     }

@@ -15,7 +15,7 @@ public class RebrkElementCatalogLoader extends AbstractCatalogLoader<RebrkElemen
     }
 
     public RebrkElementCatalogLoader(String uri) {
-        super((uri==null) ? DEFAULT_URI : uri);
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**

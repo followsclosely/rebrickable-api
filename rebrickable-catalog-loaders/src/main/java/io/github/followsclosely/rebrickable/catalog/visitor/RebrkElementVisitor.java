@@ -7,17 +7,14 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class RebrkElementVisitor {
+    private final CatalogContext context;
     @Getter
     private long visitCount = 0;
-    private final CatalogContext context;
 
     public RebrkElement visit(RebrkElement element) {
         this.visitCount++;
         if (element.getColorId() != null) {
             element.setColor(context.getColor(element.getColorId()));
-        }
-        if (element.getPartId() != null) {
-            //todo: I have no parts cache
         }
         return element;
     }

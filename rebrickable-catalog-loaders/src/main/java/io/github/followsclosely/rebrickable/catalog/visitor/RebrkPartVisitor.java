@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class RebrkPartVisitor {
+    private final CatalogContext context;
     @Getter
     private long visitCount = 0;
-    private final CatalogContext context;
 
     public RebrkPart visit(RebrkPart part) {
         visitCount++;

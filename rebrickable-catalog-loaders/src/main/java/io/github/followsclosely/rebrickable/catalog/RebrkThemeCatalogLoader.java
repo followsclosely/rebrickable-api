@@ -12,6 +12,7 @@ public class RebrkThemeCatalogLoader extends AbstractCatalogLoader<RebrkTheme> i
     public RebrkThemeCatalogLoader() {
         super(DEFAULT_URI);
     }
+
     public RebrkThemeCatalogLoader(String uri) {
         super((uri == null) ? DEFAULT_URI : uri);
     }

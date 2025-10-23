@@ -12,8 +12,9 @@ public class RebrkSetCatalogLoader extends AbstractCatalogLoader<RebrkSet> imple
     public RebrkSetCatalogLoader() {
         super(DEFAULT_URI);
     }
+
     public RebrkSetCatalogLoader(String uri, CatalogContext context) {
-        super((uri==null) ? DEFAULT_URI : uri);
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**

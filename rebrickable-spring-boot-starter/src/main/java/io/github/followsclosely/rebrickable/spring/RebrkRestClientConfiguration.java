@@ -1,13 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
-import io.github.followsclosely.rebrickable.RebrkCategoryClient;
-import io.github.followsclosely.rebrickable.RebrkConfiguration;
-import io.github.followsclosely.rebrickable.RebrkColorClient;
-import io.github.followsclosely.rebrickable.RebrkElementClient;
-import io.github.followsclosely.rebrickable.RebrkMinifigClient;
-import io.github.followsclosely.rebrickable.RebrkPartClient;
-import io.github.followsclosely.rebrickable.RebrkSetClient;
-import io.github.followsclosely.rebrickable.RebrkThemeClient;
+import io.github.followsclosely.rebrickable.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

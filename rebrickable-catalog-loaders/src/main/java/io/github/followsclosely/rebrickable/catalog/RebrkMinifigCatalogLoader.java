@@ -12,6 +12,7 @@ public class RebrkMinifigCatalogLoader extends AbstractCatalogLoader<RebrkMinifi
     public RebrkMinifigCatalogLoader() {
         super(DEFAULT_URI);
     }
+
     public RebrkMinifigCatalogLoader(String uri) {
         super((uri == null) ? DEFAULT_URI : uri);
     }

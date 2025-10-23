@@ -13,8 +13,9 @@ public class RebrkPartCatalogLoader extends AbstractCatalogLoader<RebrkPart> imp
     public RebrkPartCatalogLoader() {
         super(DEFAULT_URI);
     }
+
     public RebrkPartCatalogLoader(String uri) {
-        super((uri==null) ? DEFAULT_URI : uri);
+        super((uri == null) ? DEFAULT_URI : uri);
     }
 
     /**
