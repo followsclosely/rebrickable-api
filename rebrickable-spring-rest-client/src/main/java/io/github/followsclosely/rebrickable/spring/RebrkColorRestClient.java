@@ -4,6 +4,7 @@ import io.github.followsclosely.rebrickable.RebrkColorClient;
 import io.github.followsclosely.rebrickable.dto.RebrkColor;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 public class RebrkColorRestClient extends AbstractRebrkRestClient implements RebrkColorClient {
 
@@ -15,11 +16,12 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
         super(authorizationKey);
     }
 
-    public RebrkColorRestClient(org.springframework.web.client.RestClient restClient) {
+    public RebrkColorRestClient(RestClient restClient) {
         super(restClient);
     }
 
     public RebrkColor getColor(Long id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder.path("colors/" + id + "/").build())
                 .retrieve()
@@ -28,11 +30,13 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
 
     @Override
     public RebrkResponse<RebrkColor> getColors() {
+        waitAsNeeded();
         return getColors(null);
     }
 
     @Override
     public RebrkResponse<RebrkColor> getColors(Query query) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> {
                     builder.path("colors/");

@@ -1,1 +1,5 @@
-rebrickable.key: YOUR_API_KEY_HERE
+rebrickable:
+  key: YOUR_API_KEY_HERE
+  api-limits:
+    min-wait-ms-between-calls: 1000
+    random-ms-addition: 100

@@ -23,6 +23,7 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
 
     @Override
     public RebrkTheme getTheme(Long id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder.path("themes/" + id + "/").build())
                 .retrieve()
@@ -31,7 +32,7 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
 
     @Override
     public Collection<RebrkTheme> getThemes(Query query) {
-
+        waitAsNeeded();
         RebrkResponse<RebrkTheme> result = restClient.get()
                 .uri(builder -> {
                     builder.path("themes/");

@@ -4,6 +4,7 @@ import io.github.followsclosely.rebrickable.RebrkMinifigClient;
 import io.github.followsclosely.rebrickable.dto.RebrkMinifig;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements RebrkMinifigClient {
 
@@ -14,12 +15,13 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey);
     }
 
-    public RebrkMinifigRestClient(org.springframework.web.client.RestClient restClient) {
+    public RebrkMinifigRestClient(RestClient restClient) {
         super(restClient);
     }
 
     @Override
     public RebrkMinifig getMinifig(String id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder.path("minifigs/" + id + "/").build())
                 .retrieve()
@@ -28,6 +30,7 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
 
     @Override
     public RebrkResponse<RebrkMinifig> getMinifigs(Query query) {
+        waitAsNeeded();
         RebrkResponse<RebrkMinifig> result = restClient.get()
                 .uri(builder -> {
                     builder.path("minifigs/");

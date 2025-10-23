@@ -23,6 +23,7 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
 
     @Override
     public RebrkCategory getCategory(Long id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder.path("part_categories/" + id + "/").build())
                 .retrieve()
@@ -31,7 +32,7 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
 
     @Override
     public Collection<RebrkCategory> getCategories(Query query) {
-
+        waitAsNeeded();
         RebrkResponse<RebrkCategory> result = restClient.get()
                 .uri(builder -> {
                     builder.path("part_categories/");

@@ -6,6 +6,7 @@ import io.github.followsclosely.rebrickable.dto.RebrkPart;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
 
+import java.net.URI;
 import java.util.Collection;
 
 public class RebrkPartRestClient extends AbstractRebrkRestClient implements RebrkPartClient {
@@ -27,6 +28,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
     }
 
     public RebrkPart getPart(String id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder
                         .path("parts/" + id + "/")
@@ -37,6 +39,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
 
     @Override
     public RebrkResponse<RebrkPart> getParts(Query query) {
+        waitAsNeeded();
         RebrkResponse<RebrkPart> result = restClient.get()
                 .uri(builder -> {
                     builder.path("parts/");
@@ -45,7 +48,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                         queryParam(builder, "page_size", query.getPageSize());
                         queryParam(builder, "part_number", query.getPartNumber());
                         //TODO: Verify that this field works!
-                        queryParam(builder, "part_numbers", query.getPartNumbers());
+                        queryParam(builder, "part_nums", query.getPartNumbers());
                         queryParam(builder, "part_cat_id", query.getCategoryId());
                         queryParam(builder, "color_id", query.getColorId());
                         queryParam(builder, "bricklink_id", query.getBricklinkId());
@@ -65,6 +68,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
 
     @Override
     public Collection<RebrkColorDetails> getColorsOfPart(String id) {
+        waitAsNeeded();
         RebrkResponse<RebrkColorDetails> result = restClient.get()
                 .uri(builder -> builder
                         .path("parts/" + id + "/colors/")

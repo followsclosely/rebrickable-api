@@ -6,6 +6,7 @@ import io.github.followsclosely.rebrickable.dto.RebrkInventoryPart;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkSet;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
@@ -27,7 +28,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         super(authorizationKey);
     }
 
-    public RebrkSetRestClient(org.springframework.web.client.RestClient restClient) {
+    public RebrkSetRestClient(RestClient restClient) {
         super(restClient);
     }
 
@@ -37,13 +38,14 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
 
     @Override
     public RebrkSet getSet(String number, boolean loadParts, boolean loadMinifigs) {
-
+        waitAsNeeded();
         RebrkSet set = restClient.get()
                 .uri(builder -> builder.path("sets/" + number + "/").build())
                 .retrieve()
                 .body(RebrkSet.class);
 
         if (loadParts) {
+            waitAsNeeded();
             //TODO: This may need to support paging at some point
             RebrkResponse<RebrkInventoryPart> parts = restClient.get()
                     .uri(builder -> builder
@@ -60,6 +62,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         }
 
         if (loadMinifigs) {
+            waitAsNeeded();
             RebrkResponse<RebrkInventoryMinifig> minifigs = restClient.get()
                     .uri(builder -> builder
                             .path("sets/" + number + "/minifigs/")

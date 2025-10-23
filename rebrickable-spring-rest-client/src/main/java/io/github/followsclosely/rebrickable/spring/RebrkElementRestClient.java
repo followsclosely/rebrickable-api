@@ -4,6 +4,7 @@ import io.github.followsclosely.rebrickable.RebrkElementClient;
 import io.github.followsclosely.rebrickable.dto.RebrkElement;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
@@ -17,12 +18,13 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey);
     }
 
-    public RebrkElementRestClient(org.springframework.web.client.RestClient restClient) {
+    public RebrkElementRestClient(RestClient restClient) {
         super(restClient);
     }
 
     @Override
     public RebrkElement getElement(String id) {
+        waitAsNeeded();
         return restClient.get()
                 .uri(builder -> builder
                         .path("elements/" + id + "/")
@@ -33,6 +35,7 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
 
     @Override
     public Collection<RebrkElement> getElementsFromMinifig(String id) {
+        waitAsNeeded();
         RebrkResponse<RebrkElement> result = restClient.get()
                 .uri(builder -> builder
                         .path("minifigs/" + id + "/parts/")

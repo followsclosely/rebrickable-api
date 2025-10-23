@@ -6,6 +6,9 @@ plugins {
 
 dependencies {
 
+    compileOnly('org.slf4j:slf4j-api:2.0.17')
+    compileOnly('ch.qos.logback:logback-classic:1.5.17')
+
     compileOnly('org.springframework:spring-web:6.2.11')
     implementation(project(':rebrickable-api'))
     implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
