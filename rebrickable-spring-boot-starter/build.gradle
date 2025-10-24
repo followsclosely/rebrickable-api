@@ -16,14 +16,14 @@ dependencies {
     implementation(project(':rebrickable-api'))
     compileOnly(project(':rebrickable-catalog-loaders'))
     compileOnly(project(':rebrickable-spring-rest-client'))
-    implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
+    //implementation('com.fasterxml.jackson.core:jackson-annotations:2.20')
 
     // For testing
     implementation('io.github.followsclosely:rebrickable-api:3.0.0-SNAPSHOT')
 
     testImplementation(project(':rebrickable-catalog-loaders'))
     testImplementation(project(':rebrickable-spring-rest-client'))
-    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.15.2')
+    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.20.0')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
     testImplementation('org.springframework:spring-web:6.2.11')
 

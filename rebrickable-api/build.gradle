@@ -2,14 +2,15 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'io.freefair.lombok' version '9.0.0'
+    id 'com.vanniktech.maven.publish' version '0.34.0'
 }
 
 dependencies {
 
-    implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
+    implementation('com.fasterxml.jackson.core:jackson-annotations:2.20')
 
     // For testing
-    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.15.2')
+    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.20.0')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
 
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
@@ -31,4 +32,38 @@ publishing {
 
 test {
     useJUnitPlatform()
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+
+    signAllPublications()
+
+    coordinates(group.toString(), "rebrickable-api", version.toString())
+
+    pom {
+        name = "Rebrickable API"
+        description = "A Client-Side Reference Implementation of the Rebrickable API"
+        inceptionYear = "2025"
+        url = "https://github.com/followsclosely/rebrickable-api"
+        licenses {
+            license {
+                name = "The Apache License, Version 2.0"
+                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+        developers {
+            developer {
+                id = "mwilson"
+                name = "Matthew Wilson"
+                url = "https://github.com/followsclosely"
+            }
+        }
+        scm {
+            url = "https://github.com/followsclosely/rebrickable-api"
+            connection = "scm:git:git://github.com/followsclosely/rebrickable-api"
+            developerConnection = "scm:git:ssh://git@github.com:followsclosely/rebrickable-api.git"
+        }
+    }
 }
