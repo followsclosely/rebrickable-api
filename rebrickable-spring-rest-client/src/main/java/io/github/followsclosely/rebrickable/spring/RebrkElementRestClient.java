@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkElementClient;
 import io.github.followsclosely.rebrickable.dto.RebrkElement;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -14,30 +15,30 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkElementRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkElementRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkElementRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkElementRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     @Override
     public RebrkElement getElement(String id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkElement element = restClient.get()
                 .uri(builder -> builder
                         .path("elements/" + id + "/")
                         .build())
                 .retrieve()
                 .body(RebrkElement.class);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return element;
     }
 
     @Override
     public Collection<RebrkElement> getElementsFromMinifig(String id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkElement> result = restClient.get()
                 .uri(builder -> builder
                         .path("minifigs/" + id + "/parts/")
@@ -45,7 +46,7 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
                         .build())
                 .retrieve()
                 .body(ELEMENT_TYPE_REF);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

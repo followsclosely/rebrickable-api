@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkPartClient;
 import io.github.followsclosely.rebrickable.dto.RebrkColorDetails;
 import io.github.followsclosely.rebrickable.dto.RebrkPart;
@@ -7,7 +8,6 @@ import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 
-import java.net.URI;
 import java.util.Collection;
 
 @Slf4j
@@ -21,16 +21,16 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkPartRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkPartRestClient(org.springframework.web.client.RestClient restClient) {
-        super(restClient);
+    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, org.springframework.web.client.RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     public RebrkPart getPart(String id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkPart part = restClient.get()
                 .uri(builder -> builder
                         .path("parts/" + id + "/")
@@ -38,13 +38,13 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                 .retrieve()
                 .body(RebrkPart.class);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return part;
     }
 
     @Override
     public RebrkResponse<RebrkPart> getParts(Query query) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkPart> result = restClient.get()
                 .uri(builder -> {
                     builder.path("parts/");
@@ -66,14 +66,14 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                     return builder.build();
                 }).retrieve().body(PART_TYPE_REF);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result;
     }
 
     @Override
     public Collection<RebrkColorDetails> getColorsOfPart(String id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkColorDetails> result = restClient.get()
                 .uri(builder -> builder
                         .path("parts/" + id + "/colors/")
@@ -82,7 +82,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                 .retrieve()
                 .body(COLOR_DETAILS_TYPE_REF);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

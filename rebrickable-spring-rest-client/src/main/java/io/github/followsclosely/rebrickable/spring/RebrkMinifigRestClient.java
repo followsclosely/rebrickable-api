@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkMinifigClient;
 import io.github.followsclosely.rebrickable.dto.RebrkMinifig;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -11,28 +12,28 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
     private final static ParameterizedTypeReference<RebrkResponse<RebrkMinifig>> TYPE = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkMinifigRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkMinifigRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkMinifigRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkMinifigRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     @Override
     public RebrkMinifig getMinifig(String id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkMinifig minifig = restClient.get()
                 .uri(builder -> builder.path("minifigs/" + id + "/").build())
                 .retrieve()
                 .body(RebrkMinifig.class);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return minifig;
     }
 
     @Override
     public RebrkResponse<RebrkMinifig> getMinifigs(Query query) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkMinifig> result = restClient.get()
                 .uri(builder -> {
                     builder.path("minifigs/");
@@ -50,7 +51,7 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
                 .retrieve()
                 .body(TYPE);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result;
     }

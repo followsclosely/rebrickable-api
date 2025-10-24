@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkColorClient;
 import io.github.followsclosely.rebrickable.dto.RebrkColor;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -12,35 +13,35 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkColorRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkColorRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkColorRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkColorRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     public RebrkColor getColor(Long id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkColor color = restClient.get()
                 .uri(builder -> builder.path("colors/" + id + "/").build())
                 .retrieve()
                 .body(RebrkColor.class);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return color;
     }
 
     @Override
     public RebrkResponse<RebrkColor> getColors() {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkColor> colors = getColors(null);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return colors;
     }
 
     @Override
     public RebrkResponse<RebrkColor> getColors(Query query) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkColor> colors = restClient.get()
                 .uri(builder -> {
                     builder.path("colors/");
@@ -53,7 +54,7 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
                 })
                 .retrieve()
                 .body(COLOR_TYPE_REF);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return colors;
     }
 }

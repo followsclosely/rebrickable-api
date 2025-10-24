@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkCategoryClient;
 import io.github.followsclosely.rebrickable.dto.RebrkCategory;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -13,28 +14,28 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkCategory>> TYPE_REF = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkCategoryRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkCategoryRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkCategoryRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkCategoryRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     @Override
     public RebrkCategory getCategory(Long id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkCategory rebrkCategory = restClient.get()
                 .uri(builder -> builder.path("part_categories/" + id + "/").build())
                 .retrieve()
                 .body(RebrkCategory.class);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return rebrkCategory;
     }
 
     @Override
     public Collection<RebrkCategory> getCategories(Query query) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkCategory> result = restClient.get()
                 .uri(builder -> {
                     builder.path("part_categories/");
@@ -47,7 +48,7 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
                 })
                 .retrieve()
                 .body(TYPE_REF);
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

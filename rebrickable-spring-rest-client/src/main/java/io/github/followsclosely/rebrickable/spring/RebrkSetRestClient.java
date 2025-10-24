@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkSetClient;
 import io.github.followsclosely.rebrickable.dto.RebrkInventoryMinifig;
 import io.github.followsclosely.rebrickable.dto.RebrkInventoryPart;
@@ -24,12 +25,12 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkSetRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkSetRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkSetRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkSetRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     public RebrkSet getSet(String number) {
@@ -38,14 +39,14 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
 
     @Override
     public RebrkSet getSet(String number, boolean loadParts, boolean loadMinifigs) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkSet set = restClient.get()
                 .uri(builder -> builder.path("sets/" + number + "/").build())
                 .retrieve()
                 .body(RebrkSet.class);
 
         if (loadParts) {
-            borrow(1000);
+            rebrkApiRateLimiter.borrow(1000);
             //TODO: This may need to support paging at some point
             RebrkResponse<RebrkInventoryPart> parts = restClient.get()
                     .uri(builder -> builder
@@ -62,7 +63,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         }
 
         if (loadMinifigs) {
-            borrow(1000);
+            rebrkApiRateLimiter.borrow(1000);
             RebrkResponse<RebrkInventoryMinifig> minifigs = restClient.get()
                     .uri(builder -> builder
                             .path("sets/" + number + "/minifigs/")
@@ -77,13 +78,14 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
             }
         }
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return set;
     }
 
 
     @Override
     public RebrkResponse<RebrkSet> getSets(Query query) {
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkSet> result = restClient.get()
                 .uri(builder -> {
                     builder.path("sets/");
@@ -102,12 +104,14 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
                 .retrieve()
                 .body(SET_TYPE_REF);
 
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result;
     }
 
     @Override
     public Collection<RebrkSet> getSetsThatContainMinifig(String number) {
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkSet> result = restClient.get()
                 .uri(builder -> builder
                         .path("minifigs/" + number + "/sets/")
@@ -115,6 +119,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
                 .retrieve()
                 .body(SET_TYPE_REF);
 
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkTheme;
@@ -13,29 +14,29 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkThemeRestClient(String authorizationKey) {
-        super(authorizationKey);
+    public RebrkThemeRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
+        super(rateLimiter, authorizationKey);
     }
 
-    public RebrkThemeRestClient(org.springframework.web.client.RestClient restClient) {
-        super(restClient);
+    public RebrkThemeRestClient(RebrkApiRateLimiter rateLimiter, org.springframework.web.client.RestClient restClient) {
+        super(rateLimiter, restClient);
     }
 
     @Override
     public RebrkTheme getTheme(Long id) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkTheme theme = restClient.get()
                 .uri(builder -> builder.path("themes/" + id + "/").build())
                 .retrieve()
                 .body(RebrkTheme.class);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         return theme;
     }
 
     @Override
     public Collection<RebrkTheme> getThemes(Query query) {
-        waitAsNeeded();
+        rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkTheme> result = restClient.get()
                 .uri(builder -> {
                     builder.path("themes/");
@@ -49,7 +50,7 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
                 .retrieve()
                 .body(Theme_TYPE_REF);
 
-        resetLastCallTime();
+        rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

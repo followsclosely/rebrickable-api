@@ -1,7 +1,9 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
+import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkElementClient;
+import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.dto.RebrkElement;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkElementRestClientTest {
 
-    private final RebrkElementClient rebrkElementClient = new RebrkElementRestClient(AuthorizationKey.VALUE);
+    private final RebrkElementClient rebrkElementClient = new RebrkElementRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
 
     @Test
     void getElement() {
