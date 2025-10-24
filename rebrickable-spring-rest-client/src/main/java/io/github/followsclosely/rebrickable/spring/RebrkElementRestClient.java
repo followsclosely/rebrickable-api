@@ -25,12 +25,14 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
     @Override
     public RebrkElement getElement(String id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkElement element = restClient.get()
                 .uri(builder -> builder
                         .path("elements/" + id + "/")
                         .build())
                 .retrieve()
                 .body(RebrkElement.class);
+        resetLastCallTime();
+        return element;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
                         .build())
                 .retrieve()
                 .body(ELEMENT_TYPE_REF);
-
+        resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

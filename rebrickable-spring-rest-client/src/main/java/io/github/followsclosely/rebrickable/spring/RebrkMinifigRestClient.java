@@ -22,10 +22,12 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
     @Override
     public RebrkMinifig getMinifig(String id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkMinifig minifig = restClient.get()
                 .uri(builder -> builder.path("minifigs/" + id + "/").build())
                 .retrieve()
                 .body(RebrkMinifig.class);
+        resetLastCallTime();
+        return minifig;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
                 .retrieve()
                 .body(TYPE);
 
+        resetLastCallTime();
         assert result != null;
         return result;
     }

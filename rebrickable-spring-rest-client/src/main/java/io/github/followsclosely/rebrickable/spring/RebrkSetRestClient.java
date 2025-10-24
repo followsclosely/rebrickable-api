@@ -45,7 +45,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
                 .body(RebrkSet.class);
 
         if (loadParts) {
-            waitAsNeeded();
+            borrow(1000);
             //TODO: This may need to support paging at some point
             RebrkResponse<RebrkInventoryPart> parts = restClient.get()
                     .uri(builder -> builder
@@ -62,7 +62,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         }
 
         if (loadMinifigs) {
-            waitAsNeeded();
+            borrow(1000);
             RebrkResponse<RebrkInventoryMinifig> minifigs = restClient.get()
                     .uri(builder -> builder
                             .path("sets/" + number + "/minifigs/")
@@ -77,6 +77,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
             }
         }
 
+        resetLastCallTime();
         return set;
     }
 

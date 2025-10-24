@@ -4,11 +4,13 @@ import io.github.followsclosely.rebrickable.RebrkPartClient;
 import io.github.followsclosely.rebrickable.dto.RebrkColorDetails;
 import io.github.followsclosely.rebrickable.dto.RebrkPart;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.net.URI;
 import java.util.Collection;
 
+@Slf4j
 public class RebrkPartRestClient extends AbstractRebrkRestClient implements RebrkPartClient {
 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkPart>> PART_TYPE_REF
@@ -29,12 +31,15 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
 
     public RebrkPart getPart(String id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkPart part = restClient.get()
                 .uri(builder -> builder
                         .path("parts/" + id + "/")
                         .build())
                 .retrieve()
                 .body(RebrkPart.class);
+
+        resetLastCallTime();
+        return part;
     }
 
     @Override
@@ -58,10 +63,9 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                         queryParam(builder, "search", query.getQuery());
                     }
                     return builder.build();
-                })
-                .retrieve()
-                .body(PART_TYPE_REF);
+                }).retrieve().body(PART_TYPE_REF);
 
+        resetLastCallTime();
         assert result != null;
         return result;
     }
@@ -77,6 +81,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                 .retrieve()
                 .body(COLOR_DETAILS_TYPE_REF);
 
+        resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

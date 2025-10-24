@@ -22,22 +22,26 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
 
     public RebrkColor getColor(Long id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkColor color = restClient.get()
                 .uri(builder -> builder.path("colors/" + id + "/").build())
                 .retrieve()
                 .body(RebrkColor.class);
+        resetLastCallTime();
+        return color;
     }
 
     @Override
     public RebrkResponse<RebrkColor> getColors() {
         waitAsNeeded();
-        return getColors(null);
+        RebrkResponse<RebrkColor> colors = getColors(null);
+        resetLastCallTime();
+        return colors;
     }
 
     @Override
     public RebrkResponse<RebrkColor> getColors(Query query) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkResponse<RebrkColor> colors = restClient.get()
                 .uri(builder -> {
                     builder.path("colors/");
                     if (query != null) {
@@ -49,5 +53,7 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
                 })
                 .retrieve()
                 .body(COLOR_TYPE_REF);
+        resetLastCallTime();
+        return colors;
     }
 }

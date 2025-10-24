@@ -24,19 +24,30 @@ public class RebrkRestClientConfiguration {
     @ConditionalOnMissingBean(value = RebrkApiRateLimiter.class, name = "rebrkApiRateLimiter")
     RebrkApiRateLimiter rebrkApiRateLimiter(
             @Value("${rebrickable.api-limits.min-wait-ms-between-calls:1001}") long minDelay,
-            @Value("${rebrickable.api-limits.random-ms-addition:123}") long minDelayBonus){
+            @Value("${rebrickable.api-limits.random-ms-addition:123}") long minDelayBonus) {
         return new RebrkApiRateLimiter(minDelay, minDelayBonus);
     }
 
     @Bean
     @ConditionalOnMissingBean(value = RestClient.class, name = "rebrickableRestClient")
     RestClient rebrickableRestClient() {
-        return RestClient.builder()
+
+        RestClient.Builder builder = RestClient.builder()
                 .baseUrl(configuration.getBaseUrl())
                 .defaultHeaders(headers -> {
                     headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
                     headers.add("Authorization", "key " + configuration.getKey());
-                }).build();
+                });
+
+        if (log.isDebugEnabled()) {
+            builder.defaultStatusHandler(response -> {
+                log.debug("HttpResponse {} : {}", response.getStatusCode(), response.getStatusText());
+                response.getHeaders().forEach((key, values) -> log.debug("Header: {}={}", key, values));
+                return response.getStatusCode().is2xxSuccessful();
+            });
+        }
+
+        return builder.build();
     }
 
     @Bean

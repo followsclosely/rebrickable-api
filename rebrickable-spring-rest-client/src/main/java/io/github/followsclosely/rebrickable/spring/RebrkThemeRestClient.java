@@ -24,10 +24,13 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
     @Override
     public RebrkTheme getTheme(Long id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkTheme theme = restClient.get()
                 .uri(builder -> builder.path("themes/" + id + "/").build())
                 .retrieve()
                 .body(RebrkTheme.class);
+
+        resetLastCallTime();
+        return theme;
     }
 
     @Override
@@ -46,6 +49,7 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
                 .retrieve()
                 .body(Theme_TYPE_REF);
 
+        resetLastCallTime();
         assert result != null;
         return result.getResults();
     }

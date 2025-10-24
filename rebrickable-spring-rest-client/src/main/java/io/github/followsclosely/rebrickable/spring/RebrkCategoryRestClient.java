@@ -24,10 +24,12 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
     @Override
     public RebrkCategory getCategory(Long id) {
         waitAsNeeded();
-        return restClient.get()
+        RebrkCategory rebrkCategory = restClient.get()
                 .uri(builder -> builder.path("part_categories/" + id + "/").build())
                 .retrieve()
                 .body(RebrkCategory.class);
+        resetLastCallTime();
+        return rebrkCategory;
     }
 
     @Override
@@ -45,7 +47,7 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
                 })
                 .retrieve()
                 .body(TYPE_REF);
-
+        resetLastCallTime();
         assert result != null;
         return result.getResults();
     }
