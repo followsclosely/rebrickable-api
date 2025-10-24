@@ -64,4 +64,5 @@ mavenPublishing {
 
 tasks.named('publishMavenJavaPublicationToMavenCentralRepository') {
     dependsOn tasks.named('signMavenJavaPublication')
+    dependsOn tasks.named('signMavenPublication')
 }
