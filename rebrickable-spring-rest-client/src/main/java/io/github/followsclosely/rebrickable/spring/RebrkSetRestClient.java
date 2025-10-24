@@ -123,4 +123,25 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         assert result != null;
         return result.getResults();
     }
+
+    @Override
+    public RebrkResponse<RebrkSet> getSetsThatContainPartAndColor(String partId, String colorId, SimpleQuery query){
+        rebrkApiRateLimiter.waitAsNeeded();
+        RebrkResponse<RebrkSet> result = restClient.get()
+                .uri(builder -> {
+                    builder.path("parts/" + partId + "/colors/"+colorId+"/sets/");
+                    if (query != null) {
+                        queryParam(builder, "page", query.getPage());
+                        queryParam(builder, "page_size", query.getPageSize());
+                        queryParam(builder, "order", query.getOrdering());
+                    }
+                    return builder.build();
+                })
+                .retrieve()
+                .body(SET_TYPE_REF);
+
+        rebrkApiRateLimiter.resetLastCallTime();
+        assert result != null;
+        return result;
+    }
 }

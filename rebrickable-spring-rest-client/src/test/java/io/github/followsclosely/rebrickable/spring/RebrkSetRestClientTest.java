@@ -1,7 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
-import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkSetClient;
 import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -58,5 +57,12 @@ class RebrkSetRestClientTest {
 
         assertNotNull(result);
         assertEquals(197, result.getResults().size());
+    }
+
+    @Test
+    void getSetsThatContainPartAndColor() {
+        RebrkResponse<RebrkSet> result = rebrkSetClient.getSetsThatContainPartAndColor("3005", "5", RebrkSetClient.SimpleQuery.builder().build());
+        assertNotNull(result);
+        assertEquals(54, result.getResults().size());
     }
 }

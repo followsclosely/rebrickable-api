@@ -46,6 +46,8 @@ public interface RebrkSetClient {
      */
     Collection<RebrkSet> getSetsThatContainMinifig(String number);
 
+    RebrkResponse<RebrkSet> getSetsThatContainPartAndColor(String partId, String colorId, SimpleQuery query);
+
     @Data
     @Builder
     class Query {
@@ -57,5 +59,13 @@ public interface RebrkSetClient {
         private Integer minParts;
         private Integer maxParts;
         private String query;
+    }
+
+    @Data
+    @Builder
+    class SimpleQuery {
+        private Integer page;
+        private Integer pageSize;
+        private String ordering;
     }
 }
