@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'io.freefair.lombok' version '9.0.0'
-    id 'com.vanniktech.maven.publish' version '0.34.0'
+    id 'signing'
 }
 
 dependencies {
@@ -16,53 +16,83 @@ dependencies {
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
 test {
     useJUnitPlatform()
 }
 
-mavenPublishing {
-    publishToMavenCentral()
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
 
-    signAllPublications()
+tasks.register('javadocJar', Jar) {
+    from tasks.javadoc
+    archiveClassifier.set('javadoc')
+}
 
-    coordinates(group.toString(), "rebrickable-api", version.toString())
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
 
-    pom {
-        name = "Rebrickable API"
-        description = "A Client-Side Reference Implementation of the Rebrickable API"
-        inceptionYear = "2025"
-        url = "https://github.com/followsclosely/rebrickable-api"
-        licenses {
-            license {
-                name = "The Apache License, Version 2.0"
-                url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
-                distribution = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+publishing {
+    publications {
+        // Name the publication (e.g., 'mavenJava' or 'release')
+        mavenJava(MavenPublication) {
+            from components.java // Includes the main JAR
+            artifact sourcesJar
+            artifact javadocJar
+
+            // REQUIRED POM METADATA
+            pom {
+                name = "Rebrickable API"
+                inceptionYear = "2025"
+                description = "A Client-Side Reference Implementation of the Rebrickable API"
+                url = "https://github.com/followsclosely/rebrickable-api"
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = "followsclosely"
+                        name = "Matthew Wilson"
+                        url = "https://github.com/followsclosely"
+                    }
+                }
+
+                scm {
+                    url = "https://github.com/followsclosely/rebrickable-api"
+                    connection = "scm:git:git://github.com/followsclosely/rebrickable-api"
+                    developerConnection = "scm:git:ssh://git@github.com:followsclosely/rebrickable-api.git"
+                }
             }
-        }
-        developers {
-            developer {
-                id = "followsclosely"
-                name = "Matthew Wilson"
-                url = "https://github.com/followsclosely"
-            }
-        }
-        scm {
-            url = "https://github.com/followsclosely/rebrickable-api"
-            connection = "scm:git:git://github.com/followsclosely/rebrickable-api"
-            developerConnection = "scm:git:ssh://git@github.com:followsclosely/rebrickable-api.git"
         }
     }
 }
 
-tasks.named('publishMavenPublicationToMavenCentralRepository') {
+signing {
+    sign publishing.publications.mavenJava
+}
+
+tasks.named('publishMavenJavaPublicationToMavenCentralRepository') {
     dependsOn tasks.named('signMavenJavaPublication')
-    mustRunAfter tasks.named('signMavenJavaPublication')
+}
+
+repositories {
+    maven {
+        // New Portal OSSRH Staging API URL is used for the classic staging flow
+        name = 'MavenCentral'
+        url = uri('https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/')
+
+        credentials {
+            // Read credentials from local or CI properties
+            username = project.findProperty('centralPortalUsername')
+            password = project.findProperty('centralPortalPassword')
+        }
+    }
 }
