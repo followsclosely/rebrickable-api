@@ -61,6 +61,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
                         queryParam(builder, "lego_id", query.getLegoId());
                         queryParam(builder, "ldraw_id", query.getLdrawId());
                         queryParam(builder, "search", query.getQuery());
+                        queryParam(builder, "inc_part_details", Boolean.TRUE.equals(query.getIncludePartDetails()) ? 1 : 0);
                     }
                     return builder.build();
                 }).retrieve().body(PART_TYPE_REF);

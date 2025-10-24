@@ -51,5 +51,7 @@ public interface RebrkPartClient {
         private String legoId;
         private String ldrawId;
         private String query;
+        @Builder.Default
+        private Boolean includePartDetails = Boolean.TRUE;
     }
 }
