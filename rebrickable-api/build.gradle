@@ -55,7 +55,7 @@ mavenPublishing {
         }
         developers {
             developer {
-                id = "mwilson"
+                id = "followsclosely"
                 name = "Matthew Wilson"
                 url = "https://github.com/followsclosely"
             }

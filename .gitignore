@@ -22,13 +22,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
-/.gradle/
 /.idea/
-/gradle/
 /rebrickable-api/build/
 /rebrickable-catalog-loaders/build/
 /rebrickable-spring-rest-client/build/
 /build/
-/gradlew*
 /rebrickable-spring-rest-client/src/test/resources/.application.properties
 /rebrickable-hello-world/src/main/resources/application.properties
