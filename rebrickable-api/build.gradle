@@ -83,8 +83,13 @@ repositories {
 
         credentials {
             // Read credentials from local or CI properties
-            username = project.findProperty('centralPortalUsername')
-            password = project.findProperty('centralPortalPassword')
+            username = project.findProperty('ORG_GRADLE_PROJECT_mavenCentralUsername')
+            password = project.findProperty('ORG_GRADLE_PROJECT_mavenCentralPassword')
         }
     }
+}
+
+signing {
+    // Sign the publication defined above
+    sign publishing.publications.mavenJava
 }
