@@ -1,6 +1,5 @@
 package io.github.followsclosely.rebrickable.catalog;
 
-import io.github.followsclosely.rebrickable.dto.RebrkInventoryMinifig;
 import io.github.followsclosely.rebrickable.dto.RebrkInventorySet;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVRecord;

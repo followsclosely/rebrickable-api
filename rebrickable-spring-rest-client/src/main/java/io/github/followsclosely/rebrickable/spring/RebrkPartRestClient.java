@@ -7,6 +7,7 @@ import io.github.followsclosely.rebrickable.dto.RebrkPart;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
@@ -21,13 +22,22 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkPartRestClient(String authorizationKey) {
+        super(authorizationKey);
     }
 
-    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, org.springframework.web.client.RestClient restClient) {
+    public RebrkPartRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkPartRestClient(RestClient restClient) {
+        super(restClient);
+    }
+
+    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
         super(rateLimiter, restClient);
     }
+
 
     public RebrkPart getPart(String id) {
         rebrkApiRateLimiter.waitAsNeeded();

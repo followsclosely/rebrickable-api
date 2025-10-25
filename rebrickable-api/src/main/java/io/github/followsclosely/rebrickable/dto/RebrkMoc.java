@@ -11,15 +11,14 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * Represents a LEGO set in the Rebrickable database.
- * Contains metadata and references to parts and minifigs.
+ * Represents a LEGO MOC in the Rebrickable database.
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RebrkSet {
+public class RebrkMoc {
     /**
      * The set number (unique identifier).
      */
@@ -46,33 +45,17 @@ public class RebrkSet {
     /**
      * The image URL for the set.
      */
-    @JsonProperty("set_img_url")
+    @JsonProperty("moc_img_url")
     private String imageUrl;
     /**
      * The URL to the set's page.
      */
-    @JsonProperty("set_url")
+    @JsonProperty("moc_url")
     private String url;
-    /**
-     * The last modified date/time of the set.
-     */
-    @JsonProperty("last_modified_dt")
-    private String lastModified;
 
+    @JsonProperty("designer_name")
+    private String designer;
 
-    /**
-     * The theme object, if loaded.
-     */
-    @JsonIgnore
-    private RebrkTheme theme;
-    /**
-     * The list of inventory parts in the set.
-     */
-    @JsonIgnore
-    private List<RebrkInventoryPart> parts;
-    /**
-     * The list of minifigs in the set.
-     */
-    @JsonIgnore
-    private List<RebrkInventoryMinifig> minifigs;
+    @JsonProperty("designer_url")
+    private String designerUrl;
 }

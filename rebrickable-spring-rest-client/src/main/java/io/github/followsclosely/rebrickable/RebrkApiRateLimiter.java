@@ -9,7 +9,10 @@ public interface RebrkApiRateLimiter {
      *
      * @param millis The number of milliseconds to borrow.
      */
-    default void borrow(long millis){};
+    default void borrow(long millis) {
+    }
+
+    ;
 
     /**
      * Waits for at least one second since the last time this method was called.
@@ -17,12 +20,18 @@ public interface RebrkApiRateLimiter {
      * This method is synchronized to ensure thread-safe updates to lastCallTime
      * and to prevent multiple threads from concurrently calculating the wait time.
      */
-    default void waitAsNeeded(){};
+    default void waitAsNeeded() {
+    }
+
+    ;
 
     /**
      * Resets the last call time to the current system time.
      * This can be used to indicate that a call has just been made,
      * effectively starting the wait timer anew.
      */
-    default void resetLastCallTime(){};
+    default void resetLastCallTime() {
+    }
+
+    ;
 }

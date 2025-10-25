@@ -53,15 +53,15 @@ public class RebrkRestClientConfiguration {
     @Bean
     @ConditionalOnClass(RebrkCategoryRestClient.class)
     @ConditionalOnMissingBean(RebrkCategoryClient.class)
-    RebrkCategoryClient rebrkCategoryClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkCategoryClient rebrkCategoryClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkCategoryClient bean using RebrkCategoryRestClient");
-        return new RebrkCategoryRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkCategoryRestClient(restClient, rebrkApiRateLimiter);
     }
 
     @Bean
     @ConditionalOnClass(RebrkColorRestClient.class)
     @ConditionalOnMissingBean(RebrkColorClient.class)
-    RebrkColorClient rebrkColorClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkColorClient rebrkColorClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkColorClient bean using RebrkColorRestClient");
         return new RebrkColorRestClient(rebrkApiRateLimiter, restClient);
     }
@@ -69,7 +69,7 @@ public class RebrkRestClientConfiguration {
     @Bean
     @ConditionalOnClass(RebrkElementRestClient.class)
     @ConditionalOnMissingBean(RebrkElementClient.class)
-    RebrkElementClient rebrkElementClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkElementClient rebrkElementClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkElementClient bean using RebrkElementRestClient");
         return new RebrkElementRestClient(rebrkApiRateLimiter, restClient);
     }
@@ -77,7 +77,7 @@ public class RebrkRestClientConfiguration {
     @Bean
     @ConditionalOnClass(RebrkMinifigRestClient.class)
     @ConditionalOnMissingBean(RebrkMinifigClient.class)
-    RebrkMinifigClient rebrkMinifigClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkMinifigClient rebrkMinifigClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkMinifigClient bean using RebrkMinifigRestClient");
         return new RebrkMinifigRestClient(rebrkApiRateLimiter, restClient);
     }
@@ -85,7 +85,7 @@ public class RebrkRestClientConfiguration {
     @Bean
     @ConditionalOnClass(RebrkPartRestClient.class)
     @ConditionalOnMissingBean(RebrkPartClient.class)
-    RebrkPartClient rebrkPartClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkPartClient rebrkPartClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkPartClient bean using RebrkPartRestClient");
         return new RebrkPartRestClient(rebrkApiRateLimiter, restClient);
     }
@@ -93,16 +93,16 @@ public class RebrkRestClientConfiguration {
     @Bean
     @ConditionalOnClass(RebrkSetRestClient.class)
     @ConditionalOnMissingBean(RebrkSetClient.class)
-    RebrkSetClient rebrkSetClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkSetClient rebrkSetClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkSetClient bean using RebrkSetRestClient");
-        return new RebrkSetRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkSetRestClient(restClient, rebrkApiRateLimiter);
     }
 
     @Bean
     @ConditionalOnClass(RebrkThemeRestClient.class)
     @ConditionalOnMissingBean(RebrkThemeClient.class)
-    RebrkThemeClient rebrkThemeClient(RebrkApiRateLimiter rebrkApiRateLimiter, RestClient restClient) {
+    RebrkThemeClient rebrkThemeClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkThemeClient bean using RebrkThemeRestClient");
-        return new RebrkThemeRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkThemeRestClient(restClient, rebrkApiRateLimiter);
     }
 }

@@ -15,13 +15,22 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkElementRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkElementRestClient(String authorizationKey) {
+        super(authorizationKey);
+    }
+
+    public RebrkElementRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkElementRestClient(RestClient restClient) {
+        super(restClient);
     }
 
     public RebrkElementRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
         super(rateLimiter, restClient);
     }
+
 
     @Override
     public RebrkElement getElement(String id) {

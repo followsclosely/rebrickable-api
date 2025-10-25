@@ -1,9 +1,7 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
-import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkPartClient;
-import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.dto.RebrkColorDetails;
 import io.github.followsclosely.rebrickable.dto.RebrkPart;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
@@ -16,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkPartRestClientTest {
 
-    private final RebrkPartClient rebrkPartClient = new RebrkPartRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
+    private final RebrkPartClient rebrkPartClient = new RebrkPartRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getPart() {

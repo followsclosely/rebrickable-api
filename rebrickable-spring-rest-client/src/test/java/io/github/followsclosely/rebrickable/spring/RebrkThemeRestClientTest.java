@@ -1,8 +1,6 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
-import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
-import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import io.github.followsclosely.rebrickable.RebrkThemeClient.Query;
 import io.github.followsclosely.rebrickable.dto.RebrkTheme;
@@ -15,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkThemeRestClientTest {
 
-    private final RebrkThemeClient rebrkThemeClient = new RebrkThemeRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
+    private final RebrkThemeClient rebrkThemeClient = new RebrkThemeRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getTheme() {

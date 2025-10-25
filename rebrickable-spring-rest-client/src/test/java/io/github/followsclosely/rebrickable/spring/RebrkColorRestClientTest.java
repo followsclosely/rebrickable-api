@@ -1,9 +1,7 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
-import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkColorClient;
-import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.dto.RebrkColor;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkColorRestClientTest {
-    private final RebrkColorClient rebrkColorClient = new RebrkColorRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
+    private final RebrkColorClient rebrkColorClient = new RebrkColorRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getColor() {

@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
+
+    public static final DefaultRebrkApiRateLimiter DEFAULT_INSTANCE = new DefaultRebrkApiRateLimiter();
+
     // The minimum delay required between calls, in milliseconds.
     public static final long MIN_DELAY_MS = 1000;
 
@@ -17,15 +20,15 @@ public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
     private volatile long borrowedMillis = 0;
     private volatile long totalCallsMade = 0;
 
-    public DefaultRebrkApiRateLimiter(){
+    public DefaultRebrkApiRateLimiter() {
         this(MIN_DELAY_MS);
     }
 
-    public DefaultRebrkApiRateLimiter(long minimumDelay){
+    public DefaultRebrkApiRateLimiter(long minimumDelay) {
         this(minimumDelay, 10);
     }
 
-    public DefaultRebrkApiRateLimiter(long minDelay, long minDelayBonus){
+    public DefaultRebrkApiRateLimiter(long minDelay, long minDelayBonus) {
         this.minDelay = minDelay;
         this.minDelayBonus = minDelayBonus;
     }
@@ -60,8 +63,8 @@ public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
             long timeToWait = delayNeeded - timeSinceLastCall;
 
             try {
-                long timeToWaitPlus =  (timeToWait + ((long) (Math.random() * minDelayBonus)));
-                log.info("Call-{}: Need to wait {}ms, but waiting for {}ms to enforce the {}ms delay (plus {}ms)...", totalCallsMade, timeToWait, timeToWaitPlus, minDelay, timeToWaitPlus-timeToWait);
+                long timeToWaitPlus = (timeToWait + ((long) (Math.random() * minDelayBonus)));
+                log.info("Call-{}: Need to wait {}ms, but waiting for {}ms to enforce the {}ms delay (plus {}ms)...", totalCallsMade, timeToWait, timeToWaitPlus, minDelay, timeToWaitPlus - timeToWait);
                 Thread.sleep(timeToWait);
                 this.borrowedMillis = 0;
             } catch (InterruptedException e) {
@@ -86,7 +89,7 @@ public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
      * effectively starting the wait timer anew.
      */
     @Override
-    public void resetLastCallTime(){
+    public void resetLastCallTime() {
         lastCallTime = System.currentTimeMillis();
     }
 }

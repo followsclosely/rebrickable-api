@@ -13,13 +13,22 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkColorRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkColorRestClient(String authorizationKey) {
+        super(authorizationKey);
+    }
+
+    public RebrkColorRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkColorRestClient(RestClient restClient) {
+        super(restClient);
     }
 
     public RebrkColorRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
         super(rateLimiter, restClient);
     }
+
 
     public RebrkColor getColor(Long id) {
         rebrkApiRateLimiter.waitAsNeeded();

@@ -5,6 +5,7 @@ import io.github.followsclosely.rebrickable.RebrkThemeClient;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkTheme;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.client.RestClient;
 
 import java.util.Collection;
 
@@ -14,13 +15,22 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkThemeRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkThemeRestClient(String authorizationKey) {
+        super(authorizationKey);
     }
 
-    public RebrkThemeRestClient(RebrkApiRateLimiter rateLimiter, org.springframework.web.client.RestClient restClient) {
-        super(rateLimiter, restClient);
+    public RebrkThemeRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
     }
+
+    public RebrkThemeRestClient(RestClient restClient) {
+        super(restClient);
+    }
+
+    public RebrkThemeRestClient(RestClient restClient, RebrkApiRateLimiter rateLimiter) {
+        super(restClient, rateLimiter);
+    }
+
 
     @Override
     public RebrkTheme getTheme(Long id) {

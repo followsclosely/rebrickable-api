@@ -2,10 +2,7 @@ package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkSetClient;
-import io.github.followsclosely.rebrickable.dto.RebrkInventoryMinifig;
-import io.github.followsclosely.rebrickable.dto.RebrkInventoryPart;
-import io.github.followsclosely.rebrickable.dto.RebrkResponse;
-import io.github.followsclosely.rebrickable.dto.RebrkSet;
+import io.github.followsclosely.rebrickable.dto.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.client.RestClient;
 
@@ -17,6 +14,10 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
             = new ParameterizedTypeReference<>() {
     };
 
+    private final static ParameterizedTypeReference<RebrkResponse<RebrkMoc>> MOC_TYPE_REF
+            = new ParameterizedTypeReference<>() {
+    };
+
     private final static ParameterizedTypeReference<RebrkResponse<RebrkInventoryPart>> PARTS_TYPE_REF
             = new ParameterizedTypeReference<>() {
     };
@@ -25,13 +26,22 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
             = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkSetRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkSetRestClient(String authorizationKey) {
+        super(authorizationKey);
     }
 
-    public RebrkSetRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+    public RebrkSetRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkSetRestClient(RestClient restClient) {
+        super(restClient);
+    }
+
+    public RebrkSetRestClient(RestClient restClient, RebrkApiRateLimiter rateLimiter) {
         super(rateLimiter, restClient);
     }
+
 
     public RebrkSet getSet(String number) {
         return this.getSet(number, false, false);
@@ -125,11 +135,11 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
     }
 
     @Override
-    public RebrkResponse<RebrkSet> getSetsThatContainPartAndColor(String partId, String colorId, SimpleQuery query){
+    public RebrkResponse<RebrkSet> getSetsThatContainPartAndColor(String partId, String colorId, SimpleQuery query) {
         rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkSet> result = restClient.get()
                 .uri(builder -> {
-                    builder.path("parts/" + partId + "/colors/"+colorId+"/sets/");
+                    builder.path("parts/" + partId + "/colors/" + colorId + "/sets/");
                     if (query != null) {
                         queryParam(builder, "page", query.getPage());
                         queryParam(builder, "page_size", query.getPageSize());
@@ -139,6 +149,28 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
                 })
                 .retrieve()
                 .body(SET_TYPE_REF);
+
+        rebrkApiRateLimiter.resetLastCallTime();
+        assert result != null;
+        return result;
+    }
+
+    @Override
+    public RebrkResponse<RebrkMoc> getAlternates(String number, SimpleQuery query)
+    {
+        rebrkApiRateLimiter.waitAsNeeded();
+        RebrkResponse<RebrkMoc> result = restClient.get()
+                .uri(builder -> {
+                    builder.path("sets/" + number + "/alternates/");
+                    if (query != null) {
+                        queryParam(builder, "page", query.getPage());
+                        queryParam(builder, "page_size", query.getPageSize());
+                        queryParam(builder, "order", query.getOrdering());
+                    }
+                    return builder.build();
+                })
+                .retrieve()
+                .body(MOC_TYPE_REF);
 
         rebrkApiRateLimiter.resetLastCallTime();
         assert result != null;

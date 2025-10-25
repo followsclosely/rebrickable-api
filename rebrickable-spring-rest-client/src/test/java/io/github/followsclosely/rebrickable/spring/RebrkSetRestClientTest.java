@@ -2,7 +2,7 @@ package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
 import io.github.followsclosely.rebrickable.RebrkSetClient;
-import io.github.followsclosely.rebrickable.RebrkTestUtilities;
+import io.github.followsclosely.rebrickable.dto.RebrkMoc;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkSet;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkSetRestClientTest {
 
-    private final RebrkSetClient rebrkSetClient = new RebrkSetRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
+    private final RebrkSetClient rebrkSetClient = new RebrkSetRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getSet() {
@@ -64,5 +64,12 @@ class RebrkSetRestClientTest {
         RebrkResponse<RebrkSet> result = rebrkSetClient.getSetsThatContainPartAndColor("3005", "5", RebrkSetClient.SimpleQuery.builder().build());
         assertNotNull(result);
         assertEquals(54, result.getResults().size());
+    }
+
+    @Test
+    void getAlternates() {
+        RebrkResponse<RebrkMoc> result = rebrkSetClient.getAlternates("10350-1", RebrkSetClient.SimpleQuery.builder().build());
+        assertNotNull(result);
+        assertEquals(7, result.getResults().size());
     }
 }

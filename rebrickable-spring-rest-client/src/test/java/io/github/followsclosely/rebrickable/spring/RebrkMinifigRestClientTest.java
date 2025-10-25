@@ -1,9 +1,7 @@
 package io.github.followsclosely.rebrickable.spring;
 
 import io.github.followsclosely.rebrickable.AuthorizationKey;
-import io.github.followsclosely.rebrickable.RebrkApiRateLimiter;
 import io.github.followsclosely.rebrickable.RebrkMinifigClient;
-import io.github.followsclosely.rebrickable.RebrkTestUtilities;
 import io.github.followsclosely.rebrickable.dto.RebrkMinifig;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkMinifigRestClientTest {
 
-    private final RebrkMinifigClient rebrkMinifigClient = new RebrkMinifigRestClient(RebrkTestUtilities.RATE_LIMITER, AuthorizationKey.VALUE);
+    private final RebrkMinifigClient rebrkMinifigClient = new RebrkMinifigRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getMinifig() {

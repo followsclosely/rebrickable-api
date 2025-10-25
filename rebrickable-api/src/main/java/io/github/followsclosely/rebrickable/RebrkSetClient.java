@@ -1,5 +1,6 @@
 package io.github.followsclosely.rebrickable;
 
+import io.github.followsclosely.rebrickable.dto.RebrkMoc;
 import io.github.followsclosely.rebrickable.dto.RebrkResponse;
 import io.github.followsclosely.rebrickable.dto.RebrkSet;
 import lombok.Builder;
@@ -47,6 +48,8 @@ public interface RebrkSetClient {
     Collection<RebrkSet> getSetsThatContainMinifig(String number);
 
     RebrkResponse<RebrkSet> getSetsThatContainPartAndColor(String partId, String colorId, SimpleQuery query);
+
+    RebrkResponse<RebrkMoc> getAlternates(String number, SimpleQuery query);
 
     @Data
     @Builder

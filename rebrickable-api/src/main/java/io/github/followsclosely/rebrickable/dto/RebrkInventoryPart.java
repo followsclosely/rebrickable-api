@@ -8,24 +8,51 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents an inventory entry for a LEGO part in the Rebrickable database.
+ * Contains references to the part, color, and quantity information.
+ */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RebrkInventoryPart {
+    /**
+     * The unique identifier of the inventory entry.
+     */
     private Long id;
+    /**
+     * The part number associated with this inventory entry.
+     */
     @JsonIgnore
     private String partId;
+    /**
+     * The color ID associated with this inventory entry.
+     */
     @JsonIgnore
     private Long colorId;
+    /**
+     * The quantity of the part in the inventory.
+     */
     private Integer quantity;
+    /**
+     * Indicates if the part is a spare.
+     */
     @JsonProperty("is_spare")
     private Boolean isSpare;
+    /**
+     * The image URL for the part.
+     */
     @JsonProperty("img_url")
     private String imageUrl;
 
-
+    /**
+     * The part object, if loaded.
+     */
     private RebrkPart part;
+    /**
+     * The color object, if loaded.
+     */
     private RebrkColor color;
 }

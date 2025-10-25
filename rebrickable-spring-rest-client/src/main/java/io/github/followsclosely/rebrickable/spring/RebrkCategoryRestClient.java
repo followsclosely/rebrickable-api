@@ -14,11 +14,19 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
     private final static ParameterizedTypeReference<RebrkResponse<RebrkCategory>> TYPE_REF = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkCategoryRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkCategoryRestClient(String authorizationKey) {
+        super(authorizationKey);
     }
 
-    public RebrkCategoryRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
+    public RebrkCategoryRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkCategoryRestClient(RestClient restClient) {
+        super(restClient);
+    }
+
+    public RebrkCategoryRestClient(RestClient restClient, RebrkApiRateLimiter rateLimiter) {
         super(rateLimiter, restClient);
     }
 

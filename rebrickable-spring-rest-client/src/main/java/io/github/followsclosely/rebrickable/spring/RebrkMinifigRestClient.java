@@ -12,8 +12,16 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
     private final static ParameterizedTypeReference<RebrkResponse<RebrkMinifig>> TYPE = new ParameterizedTypeReference<>() {
     };
 
-    public RebrkMinifigRestClient(RebrkApiRateLimiter rateLimiter, String authorizationKey) {
-        super(rateLimiter, authorizationKey);
+    public RebrkMinifigRestClient(String authorizationKey) {
+        super(authorizationKey);
+    }
+
+    public RebrkMinifigRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
+        super(authorizationKey, rateLimiter);
+    }
+
+    public RebrkMinifigRestClient(RestClient restClient) {
+        super(restClient);
     }
 
     public RebrkMinifigRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
