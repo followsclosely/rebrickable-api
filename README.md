@@ -2,9 +2,6 @@
 
 A Java-based REST client for rebrickable for streamlined API integration.
 
-##Usage
-Here is a usage section you can add to your `README.md`:
-
 ## Usage
 
 ```java
