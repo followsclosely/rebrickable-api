@@ -1,6 +1,6 @@
 # rebrickable-api
 
-A Java-based REST client for rebrickable using Gradle and Lombok for streamlined API integration.
+A Java-based REST client for rebrickable for streamlined API integration.
 
 ##Usage
 Here is a usage section you can add to your `README.md`:
@@ -53,7 +53,7 @@ A simple Spring Boot application that loads and prints the Rebrickable color cat
 ```java
 @SpringBootApplication
 public class HelloRebrickableApplication {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(HelloRebrickableApplication.class, args);
     }
 }
