@@ -3,6 +3,7 @@ package io.github.followsclosely.rebrickable.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString(of = {"count", "results"})
 public class RebrkResponse<E> {
     /**
      * The total number of results available.
@@ -32,6 +34,7 @@ public class RebrkResponse<E> {
      * The list of results for the current page.
      */
     private List<E> results;
+
     /**
      * Constructs a response with the given results.
      *

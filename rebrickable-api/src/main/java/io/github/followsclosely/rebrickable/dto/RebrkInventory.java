@@ -2,10 +2,7 @@ package io.github.followsclosely.rebrickable.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Represents an inventory record for a LEGO set in the Rebrickable database.
@@ -16,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString(of = {"id","version","setId"})
 public class RebrkInventory {
     /**
      * The unique identifier of the inventory record.

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestClient;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(RebrkConfiguration.class)
+@ConditionalOnProperty(prefix = "rebrickable.auto-create", name = "clients", havingValue = "true", matchIfMissing = true)
 public class RebrkRestClientConfiguration {
 
     @Autowired

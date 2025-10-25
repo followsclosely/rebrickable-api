@@ -156,8 +156,7 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
     }
 
     @Override
-    public RebrkResponse<RebrkMoc> getAlternates(String number, SimpleQuery query)
-    {
+    public RebrkResponse<RebrkMoc> getAlternates(String number, SimpleQuery query) {
         rebrkApiRateLimiter.waitAsNeeded();
         RebrkResponse<RebrkMoc> result = restClient.get()
                 .uri(builder -> {

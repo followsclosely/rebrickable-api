@@ -15,6 +15,7 @@ dependencies {
     implementation(project(':rebrickable-spring-boot-starter'))
     implementation(project(':rebrickable-catalog-loaders'))
     implementation(project(':rebrickable-spring-rest-client'))
+    implementation(project(':rebrickable-api'))
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

@@ -1,13 +1,15 @@
 package io.github.followsclosely.rebrickable.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.*;
 
 /**
  * Represents external IDs and descriptions for a LEGO part or color from other databases.
  * Used for mapping Rebrickable objects to external systems.
  */
 @Data
+@ToString(of = {"ids"})
 public class RebrkExternalIds {
     /**
      * Array of external IDs for the object.

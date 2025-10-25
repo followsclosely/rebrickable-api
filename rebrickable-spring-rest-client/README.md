@@ -3,6 +3,7 @@
 A Java-based REST client for rebrickable for streamlined API integration.
 
 ## Features
+
 - Comprehensive coverage of Rebrickable API endpoints.
 - Built with Spring RestClient for robust HTTP communication.
 - Supports rate limiting to comply with Rebrickable API usage policies.
@@ -27,6 +28,7 @@ implementation('io.github.followsclosely:rebrickable-spring-rest-client:3.0.0')
 ## Usage
 
 A most basic example usage:
+
 ```java
 // Initialize the REST client with your API key
 RebrkSetClient client = new RebrkSetRestClient("your_api_key");
@@ -36,22 +38,26 @@ RebrkSet set = client.getSet("1234-1");
 ```
 
 ### Example: Using DefaultRebrkApiRateLimiter
+
 To adjust the rate of API requests, use the built-in DefaultRebrkApiRateLimiter:
 
 ```java
 DefaultRebrkApiRateLimiter rateLimiter = new DefaultRebrkApiRateLimiter(2000); // 2000 ms between requests
 RebrkSetClient client = new RebrkSetRestClient("your_api_key", rateLimiter);
 
-for (String id : setIds) {
-    //This call will be rate limited
-    RebrkSet set = client.getSet(id);
-    System.out.println("Fetched set: " + set.getName());
-    // process set
-}
+for(
+String id :setIds){
+//This call will be rate limited
+RebrkSet set = client.getSet(id);
+    System.out.
+
+println("Fetched set: "+set.getName());
+        // process set
+        }
 ```
 
 * Replace `"your_api_key"` with your actual Rebrickable API key.
-* Note that the rate limiter will only apply if you use the same instance of the client for all requests. Note that 
+* Note that the rate limiter will only apply if you use the same instance of the client for all requests. Note that
   this is done automatically if you use the constructor that does not take a rate limiter as a parameter.
 
 ### Mapped Endpoints
@@ -82,9 +88,10 @@ for (String id : setIds) {
 | **get /api/v3/lego/themes/{id}/**                             | Return details for a specific Theme                                                             | rebrkThemeRestClient.getTheme(186L);                         |
 
 ## Spring Boot Starter
-To integrate the Rebrickable API client into a Spring Boot application, you can use the provided Spring Boot Starter. 
-This starter simplifies the configuration and setup process. See the 
-[rebrickable-spring-rest-client](https://github.com/followsclosely/rebrickable-api/tree/master/rebrickable-spring-boot-starter) 
+
+To integrate the Rebrickable API client into a Spring Boot application, you can use the provided Spring Boot Starter.
+This starter simplifies the configuration and setup process. See the
+[rebrickable-spring-rest-client](https://github.com/followsclosely/rebrickable-api/tree/master/rebrickable-spring-boot-starter)
 for more details.
 
 ## Contributing
