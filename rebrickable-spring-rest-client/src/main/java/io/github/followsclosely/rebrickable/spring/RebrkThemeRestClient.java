@@ -23,12 +23,12 @@ public class RebrkThemeRestClient extends AbstractRebrkRestClient implements Reb
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkThemeRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkThemeRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkThemeRestClient(RestClient restClient, RebrkApiRateLimiter rateLimiter) {
-        super(restClient, rateLimiter);
+    public RebrkThemeRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rebrickableRestClient, rateLimiter);
     }
 
 

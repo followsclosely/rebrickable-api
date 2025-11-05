@@ -63,8 +63,18 @@ public abstract class AbstractCatalogLoader<R> {
             csvRecordStream = csvRecordStream.onClose(() -> {
                 try {
                     csvParser.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     AbstractCatalogLoader.log.error("Error closing CSVParser", e);
+                }
+                try {
+                    reader.close();
+                } catch (Exception e) {
+                    AbstractCatalogLoader.log.error("Error closing Reader", e);
+                }
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    AbstractCatalogLoader.log.error("Error closing GZIPInputStream", e);
                 }
             });
 

@@ -23,12 +23,12 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkElementRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkElementRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkElementRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
-        super(rateLimiter, restClient);
+    public RebrkElementRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rateLimiter, rebrickableRestClient);
     }
 
 

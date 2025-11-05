@@ -22,12 +22,12 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkCategoryRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkCategoryRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkCategoryRestClient(RestClient restClient, RebrkApiRateLimiter rateLimiter) {
-        super(rateLimiter, restClient);
+    public RebrkCategoryRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rateLimiter, rebrickableRestClient);
     }
 
     @Override

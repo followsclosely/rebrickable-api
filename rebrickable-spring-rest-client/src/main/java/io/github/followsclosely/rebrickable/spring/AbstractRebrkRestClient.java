@@ -32,12 +32,12 @@ public class AbstractRebrkRestClient {
         );
     }
 
-    public AbstractRebrkRestClient(RestClient restClient) {
-        this(DefaultRebrkApiRateLimiter.DEFAULT_INSTANCE, restClient);
+    public AbstractRebrkRestClient(RestClient rebrickableRestClient) {
+        this(DefaultRebrkApiRateLimiter.DEFAULT_INSTANCE, rebrickableRestClient);
     }
 
-    public AbstractRebrkRestClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
-        this.restClient = restClient;
+    public AbstractRebrkRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+        this.restClient = rebrickableRestClient;
         this.rebrkApiRateLimiter = rebrkApiRateLimiter;
     }
 

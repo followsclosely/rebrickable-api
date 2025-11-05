@@ -21,12 +21,12 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkColorRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkColorRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkColorRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
-        super(rateLimiter, restClient);
+    public RebrkColorRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rateLimiter, rebrickableRestClient);
     }
 
 

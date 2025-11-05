@@ -1,22 +1,19 @@
 plugins {
     id 'java'
-    id 'maven-publish'
     id 'io.freefair.lombok' version '9.0.0'
     id 'signing'
+    id 'maven-publish'
 }
 
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+
+    implementation('com.fasterxml.jackson.core:jackson-annotations:2.15.2')
 
     // For testing
-    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.20.0')
+    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.15.2')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
 
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
-}
-
-test {
-    useJUnitPlatform()
 }
 
 tasks.register('sourcesJar', Jar) {
@@ -24,76 +21,15 @@ tasks.register('sourcesJar', Jar) {
     archiveClassifier.set('sources')
 }
 
-tasks.register('javadocJar', Jar) {
-    from tasks.javadoc
-    archiveClassifier.set('javadoc')
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
 publishing {
     publications {
-        // Name the publication (e.g., 'mavenJava' or 'release')
         mavenJava(MavenPublication) {
-            from components.java // Includes the main JAR
-            artifact sourcesJar
-            artifact javadocJar
-
-            // REQUIRED POM METADATA
-            pom {
-                name = "Rebrickable API"
-                inceptionYear = "2025"
-                description = "A Client-Side Reference Implementation of the Rebrickable API"
-                url = "https://github.com/followsclosely/rebrickable-api"
-
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = "followsclosely"
-                        name = "Matthew Wilson"
-                        url = "https://github.com/followsclosely"
-                    }
-                }
-
-                scm {
-                    url = "https://github.com/followsclosely/rebrickable-api"
-                    connection = "scm:git:git://github.com/followsclosely/rebrickable-api"
-                    developerConnection = "scm:git:ssh://git@github.com:followsclosely/rebrickable-api.git"
-                }
-            }
+            from components.java
+            artifact tasks.sourcesJar
         }
     }
 }
 
-repositories {
-    maven {
-        // New Portal OSSRH Staging API URL is used for the classic staging flow
-        name = 'MavenCentral'
-        url = uri('https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/')
-
-        credentials {
-            // Read credentials from local or CI properties
-            username = project.findProperty('ORG_GRADLE_PROJECT_mavenCentralUsername')
-            password = project.findProperty('ORG_GRADLE_PROJECT_mavenCentralPassword')
-        }
-    }
-}
-
-signing {
-    // Sign only if publishing task is invoked, so ignore when just building locally
-    required { gradle.taskGraph.hasTask("publish") }
-    sign publishing.publications.mavenJava
-}
-
-tasks.withType(Javadoc) {
-    options.addStringOption('Xdoclint:none', '-quiet')
+test {
+    useJUnitPlatform()
 }

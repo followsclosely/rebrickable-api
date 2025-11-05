@@ -20,12 +20,12 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkMinifigRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkMinifigRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkMinifigRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
-        super(rateLimiter, restClient);
+    public RebrkMinifigRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rateLimiter, rebrickableRestClient);
     }
 
     @Override

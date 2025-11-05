@@ -3,6 +3,7 @@ package io.github.followsclosely.rebrickable.spring;
 import io.github.followsclosely.rebrickable.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 
@@ -23,6 +25,7 @@ public class RebrkRestClientConfiguration {
     private RebrkConfiguration configuration;
 
     @Bean
+    @Lazy
     @ConditionalOnMissingBean(value = DefaultRebrkApiRateLimiter.class, name = "rebrkApiRateLimiter")
     DefaultRebrkApiRateLimiter rebrkApiRateLimiter(
             @Value("${rebrickable.api-limits.min-wait-ms-between-calls:1001}") long minDelay,
@@ -30,8 +33,9 @@ public class RebrkRestClientConfiguration {
         return new DefaultRebrkApiRateLimiter(minDelay, minDelayBonus);
     }
 
-    @Bean
-    @ConditionalOnMissingBean(value = RestClient.class, name = "rebrickableRestClient")
+    @Bean(name = "rebrickableRestClient")
+    //@Lazy
+    //@ConditionalOnMissingBean(value = RestClient.class, name = "rebrickableRestClient")
     RestClient rebrickableRestClient() {
 
         RestClient.Builder builder = RestClient.builder()
@@ -53,58 +57,65 @@ public class RebrkRestClientConfiguration {
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkCategoryRestClient.class)
     @ConditionalOnMissingBean(RebrkCategoryClient.class)
-    RebrkCategoryClient rebrkCategoryClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkCategoryClient rebrkCategoryClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkCategoryClient bean using RebrkCategoryRestClient");
-        return new RebrkCategoryRestClient(restClient, rebrkApiRateLimiter);
+        return new RebrkCategoryRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkColorRestClient.class)
     @ConditionalOnMissingBean(RebrkColorClient.class)
-    RebrkColorClient rebrkColorClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkColorClient rebrkColorClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkColorClient bean using RebrkColorRestClient");
-        return new RebrkColorRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkColorRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkElementRestClient.class)
     @ConditionalOnMissingBean(RebrkElementClient.class)
-    RebrkElementClient rebrkElementClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkElementClient rebrkElementClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkElementClient bean using RebrkElementRestClient");
-        return new RebrkElementRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkElementRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkMinifigRestClient.class)
     @ConditionalOnMissingBean(RebrkMinifigClient.class)
-    RebrkMinifigClient rebrkMinifigClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkMinifigClient rebrkMinifigClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkMinifigClient bean using RebrkMinifigRestClient");
-        return new RebrkMinifigRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkMinifigRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkPartRestClient.class)
     @ConditionalOnMissingBean(RebrkPartClient.class)
-    RebrkPartClient rebrkPartClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkPartClient rebrkPartClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkPartClient bean using RebrkPartRestClient");
-        return new RebrkPartRestClient(rebrkApiRateLimiter, restClient);
+        return new RebrkPartRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkSetRestClient.class)
     @ConditionalOnMissingBean(RebrkSetClient.class)
-    RebrkSetClient rebrkSetClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkSetClient rebrkSetClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkSetClient bean using RebrkSetRestClient");
-        return new RebrkSetRestClient(restClient, rebrkApiRateLimiter);
+        return new RebrkSetRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 
     @Bean
+    @Lazy
     @ConditionalOnClass(RebrkThemeRestClient.class)
     @ConditionalOnMissingBean(RebrkThemeClient.class)
-    RebrkThemeClient rebrkThemeClient(RestClient restClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
+    RebrkThemeClient rebrkThemeClient(@Qualifier("rebrickableRestClient") RestClient rebrickableRestClient, RebrkApiRateLimiter rebrkApiRateLimiter) {
         log.info("Creating rebrkThemeClient bean using RebrkThemeRestClient");
-        return new RebrkThemeRestClient(restClient, rebrkApiRateLimiter);
+        return new RebrkThemeRestClient(rebrickableRestClient, rebrkApiRateLimiter);
     }
 }

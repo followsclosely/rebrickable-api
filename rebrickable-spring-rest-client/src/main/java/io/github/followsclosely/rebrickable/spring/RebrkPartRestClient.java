@@ -30,12 +30,12 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
         super(authorizationKey, rateLimiter);
     }
 
-    public RebrkPartRestClient(RestClient restClient) {
-        super(restClient);
+    public RebrkPartRestClient(RestClient rebrickableRestClient) {
+        super(rebrickableRestClient);
     }
 
-    public RebrkPartRestClient(RebrkApiRateLimiter rateLimiter, RestClient restClient) {
-        super(rateLimiter, restClient);
+    public RebrkPartRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
+        super(rateLimiter, rebrickableRestClient);
     }
 
 
