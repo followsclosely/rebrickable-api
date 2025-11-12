@@ -27,7 +27,7 @@ public class RebrkCategoryRestClient extends AbstractRebrkRestClient implements 
     }
 
     public RebrkCategoryRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
-        super(rateLimiter, rebrickableRestClient);
+        super(rebrickableRestClient, rateLimiter);
     }
 
     @Override

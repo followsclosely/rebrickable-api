@@ -35,7 +35,7 @@ public class RebrkPartRestClient extends AbstractRebrkRestClient implements Rebr
     }
 
     public RebrkPartRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
-        super(rateLimiter, rebrickableRestClient);
+        super(rebrickableRestClient, rateLimiter);
     }
 
 

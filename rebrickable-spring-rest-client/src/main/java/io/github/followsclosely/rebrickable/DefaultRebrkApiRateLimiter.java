@@ -1,33 +1,83 @@
 package io.github.followsclosely.rebrickable;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Default implementation of {@link RebrkApiRateLimiter} for controlling API call rate.
+ * <p>
+ * This class enforces a minimum delay between API calls, with optional random bonus delay and
+ * support for borrowing additional delay for the next call. It is thread-safe and suitable for
+ * concurrent use. The rate limiter can be customized via constructor parameters.
+ * </p>
+ * <p>
+ * Usage example:
+ * <pre>
+ *     DefaultRebrkApiRateLimiter limiter = new DefaultRebrkApiRateLimiter();
+ *     limiter.waitAsNeeded(); // Enforces delay before API call
+ * </pre>
+ * </p>
+ */
 @Slf4j
-public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
+public final class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
 
+    /**
+     * Default singleton instance with standard delay settings. This is convenient for general use cases.
+     */
     public static final DefaultRebrkApiRateLimiter DEFAULT_INSTANCE = new DefaultRebrkApiRateLimiter();
 
-    // The minimum delay required between calls, in milliseconds.
+    /**
+     * The minimum delay required between calls, in milliseconds.
+     */
     public static final long MIN_DELAY_MS = 1000;
 
+    /**
+     * Minimum delay enforced between API calls, in milliseconds.
+     */
     private final long minDelay;
+    /**
+     * Maximum random bonus added to the delay, in milliseconds.
+     */
     private final long minDelayBonus;
 
-    // A volatile variable to store the timestamp of the last successful call.
-    // 'volatile' ensures visibility across threads, which is important
-    // if multiple threads might call waitAsNeeded.
-    private volatile long lastCallTime = 0;
-    private volatile long borrowedMillis = 0;
-    private volatile long totalCallsMade = 0;
+    /**
+     * Timestamp of the last API call, in milliseconds since epoch.
+     */
+    private final AtomicLong lastCallTime = new AtomicLong(0);
 
+    /**
+     * Additional milliseconds borrowed to be added to the next wait time.
+     */
+    private final AtomicLong borrowedMillis = new AtomicLong(0);
+
+    /**
+     * Total number of API calls made through this rate limiter.
+     */
+    private final AtomicLong totalCallsMade = new AtomicLong(0);
+
+    /**
+     * Constructs a rate limiter with the default minimum delay.
+     */
     public DefaultRebrkApiRateLimiter() {
         this(MIN_DELAY_MS);
     }
 
+    /**
+     * Constructs a rate limiter with a custom minimum delay and default bonus (10ms).
+     *
+     * @param minimumDelay Minimum delay between calls in milliseconds.
+     */
     public DefaultRebrkApiRateLimiter(long minimumDelay) {
         this(minimumDelay, 10);
     }
 
+    /**
+     * Constructs a rate limiter with custom minimum delay and bonus.
+     *
+     * @param minDelay Minimum delay between calls in milliseconds.
+     * @param minDelayBonus Maximum random bonus added to delay in milliseconds.
+     */
     public DefaultRebrkApiRateLimiter(long minDelay, long minDelayBonus) {
         this.minDelay = minDelay;
         this.minDelayBonus = minDelayBonus;
@@ -41,46 +91,38 @@ public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
      * @param millis The number of milliseconds to borrow.
      */
     @Override
-    public synchronized void borrow(long millis) {
-        this.totalCallsMade++;
-        this.borrowedMillis += millis;
+    public void borrow(long millis) {
+        totalCallsMade.incrementAndGet();
+        borrowedMillis.addAndGet(millis);
     }
 
     /**
-     * Waits for at least one second since the last time this method was called.
+     * Waits for at least the configured minimum delay since the last call.
      * If the required time has not elapsed, the current thread will sleep until it has.
-     * This method is synchronized to ensure thread-safe updates to lastCallTime
-     * and to prevent multiple threads from concurrently calculating the wait time.
+     * A random bonus delay may be added to reduce the risk of hitting rate limits.
+     * Thread-safe via AtomicLong fields.
      */
     @Override
-    public synchronized void waitAsNeeded() {
-        this.totalCallsMade++;
+    public void waitAsNeeded() {
+        totalCallsMade.incrementAndGet();
         long currentTime = System.currentTimeMillis();
-        long timeSinceLastCall = currentTime - lastCallTime;
+        long timeSinceLastCall = currentTime - lastCallTime.get();
 
-        long delayNeeded = minDelay + borrowedMillis;
+        long delayNeeded = minDelay + borrowedMillis.get();
         if (timeSinceLastCall < delayNeeded) {
             long timeToWait = delayNeeded - timeSinceLastCall;
-
             try {
                 long timeToWaitPlus = (timeToWait + ((long) (Math.random() * minDelayBonus)));
-                log.info("Call-{}: Need to wait {}ms, but waiting for {}ms to enforce the {}ms delay (plus {}ms)...", totalCallsMade, timeToWait, timeToWaitPlus, minDelay, timeToWaitPlus - timeToWait);
-                Thread.sleep(timeToWait);
-                this.borrowedMillis = 0;
+                log.debug("Call-{}: Need to wait {}ms, but waiting for {}ms to enforce the {}ms delay (plus {}ms)...", totalCallsMade.get(), timeToWait, timeToWaitPlus, minDelay, timeToWaitPlus - timeToWait);
+                Thread.sleep(timeToWaitPlus);
+                borrowedMillis.set(0);
+                lastCallTime.set(System.currentTimeMillis());
             } catch (InterruptedException e) {
-                // Restore the interrupted status
                 Thread.currentThread().interrupt();
                 log.error("The wait was interrupted.");
-                // Note: The lastCallTime will be updated below even if interrupted,
-                // which might slightly skew the timing but prevents subsequent waits
-                // from being excessively long.
             }
         }
 
-        // Update the last call time to the *current* system time
-        // after any necessary waiting has occurred.
-        // This ensures the next call waits one second from *this* moment.
-        lastCallTime = System.currentTimeMillis();
     }
 
     /**
@@ -90,6 +132,6 @@ public class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
      */
     @Override
     public void resetLastCallTime() {
-        lastCallTime = System.currentTimeMillis();
+        lastCallTime.set(System.currentTimeMillis());
     }
 }

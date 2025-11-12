@@ -25,7 +25,7 @@ public class RebrkMinifigRestClient extends AbstractRebrkRestClient implements R
     }
 
     public RebrkMinifigRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
-        super(rateLimiter, rebrickableRestClient);
+        super(rebrickableRestClient, rateLimiter);
     }
 
     @Override

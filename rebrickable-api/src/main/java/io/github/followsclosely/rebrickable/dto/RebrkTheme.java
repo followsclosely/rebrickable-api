@@ -19,14 +19,17 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString(of = {"id", "name"})
 public class RebrkTheme {
+
     /**
      * The unique identifier of the theme.
      */
     private Long id;
+
     /**
      * The name of the theme.
      */
     private String name;
+
     /**
      * The ID of the parent theme, if any.
      */
@@ -38,6 +41,7 @@ public class RebrkTheme {
      */
     @JsonIgnore
     private RebrkTheme parent;
+
     /**
      * The child themes of this theme.
      */

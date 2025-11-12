@@ -28,7 +28,7 @@ public class RebrkElementRestClient extends AbstractRebrkRestClient implements R
     }
 
     public RebrkElementRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
-        super(rateLimiter, rebrickableRestClient);
+        super(rebrickableRestClient, rateLimiter);
     }
 
 
