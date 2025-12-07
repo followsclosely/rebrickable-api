@@ -1,8 +1,8 @@
 package io.github.followsclosely.rebrickable;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Default implementation of {@link RebrkApiRateLimiter} for controlling API call rate.
@@ -75,7 +75,7 @@ public final class DefaultRebrkApiRateLimiter implements RebrkApiRateLimiter {
     /**
      * Constructs a rate limiter with custom minimum delay and bonus.
      *
-     * @param minDelay Minimum delay between calls in milliseconds.
+     * @param minDelay      Minimum delay between calls in milliseconds.
      * @param minDelayBonus Maximum random bonus added to delay in milliseconds.
      */
     public DefaultRebrkApiRateLimiter(long minDelay, long minDelayBonus) {

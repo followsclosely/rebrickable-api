@@ -14,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString(of = {"id","minifigId","name"})
+@ToString(of = {"id", "minifigId", "name"})
 public class RebrkInventoryMinifig {
     /**
      * The unique identifier of the inventory entry.

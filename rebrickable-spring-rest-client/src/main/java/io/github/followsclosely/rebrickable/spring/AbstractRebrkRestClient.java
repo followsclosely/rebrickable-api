@@ -55,7 +55,7 @@ public abstract class AbstractRebrkRestClient {
     /**
      * Constructs a client with the given authorization key and a custom rate limiter.
      *
-     * @param authorizationKey The Rebrickable API key.
+     * @param authorizationKey    The Rebrickable API key.
      * @param rebrkApiRateLimiter The rate limiter to use for API calls.
      */
     public AbstractRebrkRestClient(String authorizationKey, RebrkApiRateLimiter rebrkApiRateLimiter) {
@@ -76,7 +76,7 @@ public abstract class AbstractRebrkRestClient {
      */
     public AbstractRebrkRestClient(RestClient rebrickableRestClient) {
         this(
-                Objects.requireNonNull(rebrickableRestClient,"rebrickableRestClient must not be null"),
+                Objects.requireNonNull(rebrickableRestClient, "rebrickableRestClient must not be null"),
                 DefaultRebrkApiRateLimiter.DEFAULT_INSTANCE
         );
     }
@@ -85,8 +85,8 @@ public abstract class AbstractRebrkRestClient {
      * Adds a query parameter to the URI builder if the value is not null.
      *
      * @param builder The UriBuilder to add the parameter to.
-     * @param name The name of the query parameter.
-     * @param value The value of the query parameter (single value).
+     * @param name    The name of the query parameter.
+     * @param value   The value of the query parameter (single value).
      */
     public void queryParam(UriBuilder builder, String name, Object value) {
         if (value != null) {
@@ -99,8 +99,8 @@ public abstract class AbstractRebrkRestClient {
      * The values are joined with commas.
      *
      * @param builder The UriBuilder to add the parameter to.
-     * @param name The name of the query parameter.
-     * @param values The array of values for the query parameter.
+     * @param name    The name of the query parameter.
+     * @param values  The array of values for the query parameter.
      */
     public void queryParam(UriBuilder builder, String name, String[] values) {
         if (values != null && values.length > 0) {

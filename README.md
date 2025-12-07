@@ -16,7 +16,7 @@ RebrkSet set = client.getSet("1234-1");
 
 ## rebrickable-api
 
-This module provides the core Java REST client interfaces for interacting with the Rebrickable API. 
+This module provides the core Java REST client interfaces for interacting with the Rebrickable API.
 This module serves as the foundation for other modules that build upon the core functionality.
 
 ## rebrickable-catalog-loaders
@@ -27,16 +27,19 @@ See [LEGO Catalog Database Download](https://rebrickable.com/downloads/) for mor
 
 ## rebrickable-spring-rest-client
 
-This module implements the REST client interfaces defined in the rebrickable-api module. It provides Spring-friendly beans,
-configuration, and integration points, making it easy to inject and use the Rebrickable RestClients in a Spring Application.
+This module implements the REST client interfaces defined in the rebrickable-api module. It provides Spring-friendly
+beans,
+configuration, and integration points, making it easy to inject and use the Rebrickable RestClients in a Spring
+Application.
 
 ## rebrickable-spring-boot-starter
 
-This module is a Spring Boot starter, which autoconfigures the CatalogLoaders and RestClients and related beans for 
-Spring Boot projects. By including this starter, developers can quickly enable Rebrickable API integration in their 
+This module is a Spring Boot starter, which autoconfigures the CatalogLoaders and RestClients and related beans for
+Spring Boot projects. By including this starter, developers can quickly enable Rebrickable API integration in their
 Spring Boot applications with minimal setup.
 
 A build.gradle snippet to include the starter in your Spring Boot project:
+
 ```groovy
 dependencies {
     implementation('io.github.followsclosely:rebrickable-spring-boot-starter:3.0.0')
@@ -46,7 +49,9 @@ dependencies {
     implementation('io.github.followsclosely:rebrickable-spring-rest-client:3.0.0')
 }
 ```
+
 A simple Spring Boot application that loads and prints the Rebrickable color catalog:
+
 ```java
 @SpringBootApplication
 public class HelloRebrickableApplication {
@@ -67,7 +72,9 @@ public class ColorCommandLineRunner implements CommandLineRunner {
     }
 }
 ```
+
 When you run the application, you should see output similar to the following:
+
 ```
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \

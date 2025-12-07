@@ -49,7 +49,7 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
      * Constructs a client using the provided API key and a custom rate limiter.
      *
      * @param authorizationKey The Rebrickable API key.
-     * @param rateLimiter The rate limiter to use for API calls.
+     * @param rateLimiter      The rate limiter to use for API calls.
      */
     public RebrkColorRestClient(String authorizationKey, RebrkApiRateLimiter rateLimiter) {
         super(authorizationKey, rateLimiter);
@@ -68,7 +68,7 @@ public class RebrkColorRestClient extends AbstractRebrkRestClient implements Reb
      * Constructs a client using a custom RestClient and a custom rate limiter.
      *
      * @param rebrickableRestClient The RestClient to use for API calls.
-     * @param rateLimiter The rate limiter to use for API calls.
+     * @param rateLimiter           The rate limiter to use for API calls.
      */
     public RebrkColorRestClient(RestClient rebrickableRestClient, RebrkApiRateLimiter rateLimiter) {
         super(rebrickableRestClient, rateLimiter);

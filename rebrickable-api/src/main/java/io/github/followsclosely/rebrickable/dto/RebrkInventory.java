@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString(of = {"id","version","setId"})
+@ToString(of = {"id", "version", "setId"})
 public class RebrkInventory {
     /**
      * The unique identifier of the inventory record.

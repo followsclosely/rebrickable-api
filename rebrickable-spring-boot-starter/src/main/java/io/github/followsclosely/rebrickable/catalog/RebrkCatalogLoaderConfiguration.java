@@ -14,85 +14,85 @@ import org.springframework.context.annotation.Lazy;
 @ConditionalOnProperty(prefix = "rebrickable.auto-create", name = "loaders", havingValue = "true", matchIfMissing = true)
 public class RebrkCatalogLoaderConfiguration {
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkColorCatalogLoader.class)
     public RebrkColorCatalogLoader rebrkColorCatalogLoader() {
         return new RebrkColorCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkCategoryCatalogLoader.class)
     public RebrkCategoryCatalogLoader rebrkCategoryCatalogLoader() {
         return new RebrkCategoryCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkElementCatalogLoader.class)
     public RebrkElementCatalogLoader rebrkElementCatalogLoader() {
         return new RebrkElementCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkInventoryCatalogLoader.class)
     public RebrkInventoryCatalogLoader rebrkInventoryCatalogLoader() {
         return new RebrkInventoryCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkInventoryMinifigCatalogLoader.class)
     public RebrkInventoryMinifigCatalogLoader rebrkInventoryMinifigCatalogLoader() {
         return new RebrkInventoryMinifigCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkInventorySetCatalogLoader.class)
     public RebrkInventorySetCatalogLoader rebrkInventorySetCatalogLoader() {
         return new RebrkInventorySetCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkInventoryPartCatalogLoader.class)
     public RebrkInventoryPartCatalogLoader rebrkInventoryPartCatalogLoader() {
         return new RebrkInventoryPartCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkMinifigCatalogLoader.class)
     public RebrkMinifigCatalogLoader rebrkMinifigCatalogLoader() {
         return new RebrkMinifigCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkPartCatalogLoader.class)
     public RebrkPartCatalogLoader rebrkPartCatalogLoader() {
         return new RebrkPartCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkPartRelationshipCatalogLoader.class)
     public RebrkPartRelationshipCatalogLoader rebrkPartRelationshipCatalogLoader() {
         return new RebrkPartRelationshipCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkSetCatalogLoader.class)
     public RebrkSetCatalogLoader rebrkSetCatalogLoader() {
         return new RebrkSetCatalogLoader();
     }
 
-    @Bean
     @Lazy
+    @Bean
     @ConditionalOnMissingBean(RebrkThemeCatalogLoader.class)
     public RebrkThemeCatalogLoader rebrkThemeCatalogLoader() {
         return new RebrkThemeCatalogLoader();

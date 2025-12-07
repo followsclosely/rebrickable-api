@@ -14,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString(of = {"id","partId","colorId"})
+@ToString(of = {"id", "partId", "colorId"})
 public class RebrkElement {
     /**
      * The unique identifier of the element.

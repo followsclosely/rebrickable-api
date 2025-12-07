@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString(of = {"id","name"})
+@ToString(of = {"id", "name"})
 public class RebrkMinifig {
     /**
      * The minifig number (unique identifier).
