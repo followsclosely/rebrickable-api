@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RebrkSetRestClientTest {
 
-    private final RebrkSetClient rebrkSetClient = new RebrkSetRestClient(AuthorizationKey.VALUE);
+    private final RebrkSetRestClient rebrkSetClient = new RebrkSetRestClient(AuthorizationKey.VALUE);
 
     @Test
     void getSet() {

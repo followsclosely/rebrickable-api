@@ -92,7 +92,6 @@ public class RebrkSetRestClient extends AbstractRebrkRestClient implements Rebrk
         return set;
     }
 
-
     @Override
     public RebrkResponse<RebrkSet> getSets(Query query) {
         rebrkApiRateLimiter.waitAsNeeded();
