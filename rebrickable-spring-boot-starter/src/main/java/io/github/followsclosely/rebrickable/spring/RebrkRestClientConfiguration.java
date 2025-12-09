@@ -35,7 +35,7 @@ public class RebrkRestClientConfiguration {
 
     @Lazy
     @Bean(name = "rebrickableRestClient")
-    @ConditionalOnMissingBean(value = RestClient.class, name = "rebrickableRestClient")
+    //@ConditionalOnMissingBean(value = RestClient.class, name = "rebrickableRestClient")
     RestClient rebrickableRestClient() {
 
         RestClient.Builder builder = RestClient.builder()
