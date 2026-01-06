@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString(of = {"id", "name"})
+@ToString(of = {"id", "name", "parentId"})
 public class RebrkTheme {
 
     /**
