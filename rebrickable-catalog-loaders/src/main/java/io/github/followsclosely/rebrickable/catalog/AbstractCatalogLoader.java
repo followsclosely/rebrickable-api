@@ -7,9 +7,14 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import java.util.zip.GZIPInputStream;
@@ -35,6 +40,10 @@ public abstract class AbstractCatalogLoader<R> {
      * This method correctly streams the data by returning a lazy stream
      * and ensuring resources are closed when the stream is consumed or closed.
      *
+     * For HTTP/HTTPS URIs the remote resource is downloaded to a temporary file
+     * first so the remote socket is not kept open while the returned stream is
+     * consumed/processed. This avoids remote timeouts when processing is slow.
+     *
      * @return A Stream of RebrkColor objects.
      * @throws IOException if an I/O error occurs during stream creation.
      */
@@ -45,21 +54,45 @@ public abstract class AbstractCatalogLoader<R> {
                 uri = String.format("%s?%s", uri, System.currentTimeMillis());
             }
 
-            // Open the chain of streams and the CSVParser.
-            // These will be closed by the stream's onClose handler.
-            final GZIPInputStream in = new GZIPInputStream(URI.create(uri).toURL().openStream());
-            final Reader reader = new InputStreamReader(in);
-            final CSVParser csvParser = CSVParser.builder().setReader(reader).setFormat(csvFormat).get();
+            final GZIPInputStream in;
+            final Reader reader;
+            final CSVParser csvParser;
+            final Path tempFileToDelete;
 
-            // Create a Spliterator from the CSVParser's iterator.
-            // This is the core of converting an Iterable to a Stream.
-            // The second parameter 'true' indicates a parallel stream is not supported.
+            // If the URI is HTTP(S) download to a temporary file first so the remote
+            // socket/connection is not held open while the caller processes the stream.
+            if (uri.startsWith("http://") || uri.startsWith("https://")) {
+                tempFileToDelete = Files.createTempFile("rebrickable-catalog-", ".gz");
+                tempFileToDelete.toFile().deleteOnExit();
+
+                final HttpURLConnection conn = (HttpURLConnection) URI.create(uri).toURL().openConnection();
+                conn.setConnectTimeout(30_000);
+                conn.setReadTimeout(30_000);
+                conn.setInstanceFollowRedirects(true);
+
+                try (InputStream remoteIn = conn.getInputStream()) {
+                    // copy the entire remote content to the temp file
+                    Files.copy(remoteIn, tempFileToDelete, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    // If download fails, try to delete temp file and rethrow
+                    try { Files.deleteIfExists(tempFileToDelete); } catch (Exception ignored) {}
+                    throw new IOException("Failed to download remote catalog to temp file: " + uri, e);
+                }
+
+                in = new GZIPInputStream(Files.newInputStream(tempFileToDelete));
+                reader = new InputStreamReader(in);
+                csvParser = CSVParser.builder().setReader(reader).setFormat(csvFormat).get();
+            } else {
+                // Non-HTTP URI (file:, classpath:, etc.) — stream directly
+                tempFileToDelete = null;
+                in = new GZIPInputStream(URI.create(uri).toURL().openStream());
+                reader = new InputStreamReader(in);
+                csvParser = CSVParser.builder().setReader(reader).setFormat(csvFormat).get();
+            }
+
             Stream<CSVRecord> csvRecordStream = StreamSupport.stream(csvParser.spliterator(), false);
 
-            // Add an onClose handler to the stream. This is crucial.
-            // This handler is automatically called when the stream is fully consumed
-            // or when a terminal operation like forEach, collect, or close() is called.
-            // It ensures that the underlying resources (csvParser, reader, and gzis) are properly closed.
+            // Ensure resources and temporary file are cleaned up when the returned stream is closed
             csvRecordStream = csvRecordStream.onClose(() -> {
                 try {
                     csvParser.close();
@@ -76,10 +109,15 @@ public abstract class AbstractCatalogLoader<R> {
                 } catch (Exception e) {
                     AbstractCatalogLoader.log.error("Error closing GZIPInputStream", e);
                 }
+                if (tempFileToDelete != null) {
+                    try {
+                        Files.deleteIfExists(tempFileToDelete);
+                    } catch (Exception e) {
+                        AbstractCatalogLoader.log.warn("Failed to delete temp catalog file {}", tempFileToDelete, e);
+                    }
+                }
             });
 
-            // Map each CSVRecord to a RebrkColor object.
-            // This is a lazy operation and will only happen as the stream is consumed.
             return csvRecordStream.map(this::apply);
 
         } catch (IOException e) {

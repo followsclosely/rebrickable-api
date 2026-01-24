@@ -16,6 +16,15 @@ class RebrkSetRestClientTest {
 
     private final RebrkSetRestClient rebrkSetClient = new RebrkSetRestClient(AuthorizationKey.VALUE);
 
+
+
+    @Test
+    void getSeries28MinifigurePeacockSuit() {
+        RebrkSet result = rebrkSetClient.getSet("71051-13");
+
+        assertNotNull(result);
+    }
+
     @Test
     void getSet() {
         RebrkSet result = rebrkSetClient.getSet("10305-1");
