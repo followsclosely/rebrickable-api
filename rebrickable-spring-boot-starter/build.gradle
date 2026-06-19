@@ -9,26 +9,26 @@ dependencies {
     implementation('org.slf4j:slf4j-api:2.0.17')
 
 
-    compileOnly('org.springframework:spring-web:6.2.11')
-    compileOnly("org.springframework.boot:spring-boot:3.5.6")
-    compileOnly('org.springframework.boot:spring-boot-autoconfigure:3.5.6')
+    compileOnly('org.springframework:spring-web:7.0.8')
+    compileOnly("org.springframework.boot:spring-boot:4.1.0")
+    compileOnly('org.springframework.boot:spring-boot-autoconfigure:4.1.0')
 
     implementation(project(':rebrickable-api'))
     compileOnly(project(':rebrickable-catalog-loaders'))
     compileOnly(project(':rebrickable-spring-rest-client'))
-    //implementation('com.fasterxml.jackson.core:jackson-annotations:2.20')
+    //implementation('com.fasterxml.jackson.core:jackson-annotations:2.22')
 
     // For testing
     implementation('io.github.followsclosely:rebrickable-api:3.0.0-SNAPSHOT')
 
     testImplementation(project(':rebrickable-catalog-loaders'))
     testImplementation(project(':rebrickable-spring-rest-client'))
-    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.20.0')
+    testImplementation('com.fasterxml.jackson.core:jackson-databind:2.22.0')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.11.0')
-    testImplementation('org.springframework:spring-web:6.2.11')
+    testImplementation('org.springframework:spring-web:7.0.8')
 
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.11.0')
-    testRuntimeOnly('ch.qos.logback:logback-classic:1.5.17')
+    testRuntimeOnly('ch.qos.logback:logback-classic:1.5.34')
 
 
 }
